@@ -1,3 +1,4 @@
+import 'package:binf_educational_app_redone/data/local/isar_service.dart';
 import 'package:binf_educational_app_redone/data/repositories/user_profile_repository.dart';
 import 'package:binf_educational_app_redone/presentation/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class WelcomeScreen extends ConsumerWidget{
                         activeProfile = userProfile;
                       }
                       else {
-                        activeProfile = await UserProfileRepository().createProfile();
+                        activeProfile = await UserProfileRepository(IsarService().db).createProfile();
                       }
 
                       if (context.mounted) { 

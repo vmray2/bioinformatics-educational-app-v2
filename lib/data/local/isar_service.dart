@@ -11,16 +11,27 @@ class IsarService {
   
   IsarService._internal();
 
-  // The actual database reference hidden inside the service
-  late final Isar db;
+  Future<Isar>? _db;
 
-  /// Runs the async boot process exactly once at app launch
-  Future<void> init() async {
-    final dir = await getApplicationDocumentsDirectory();
+  Future<Isar> get db {
+    if (_db != null && Isar.getInstance() != null) {
+      return _db!;
+    }
     
-    db = await Isar.open(
+    _db = _openDB();
+    return _db!;
+  }
+
+  Future<Isar> _openDB() async {
+    final dir = await getApplicationDocumentsDirectory();
+    return await Isar.open(
       [UserProfileCollectionSchema],
       directory: dir.path,
+      inspector: false
     );
+  }
+
+  void resetForTesting() {
+    _db = null;
   }
 }

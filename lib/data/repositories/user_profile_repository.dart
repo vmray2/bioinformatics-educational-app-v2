@@ -1,15 +1,20 @@
 import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
-import 'package:binf_educational_app_redone/data/local/isar_service.dart';
+import 'package:isar_community/isar.dart';
 
 class UserProfileRepository {
-  final _db = IsarService().db;
-  
+  final Future<Isar> _db;
+
+  UserProfileRepository(this._db);  
+
   /// Fetches the single-user profile from local storage
   Future<UserProfileCollection?> fetchProfile() async {
-    return await _db.userProfileCollections.get(1);
+    final isar = await _db;
+    return await isar.userProfileCollections.get(1);
   }
 
   Future<UserProfileCollection> createProfile() async {
+    final isar = await _db;
+
     final newProfile = UserProfileCollection()
       ..id = 1
       ..username = "Researcher"
@@ -20,13 +25,18 @@ class UserProfileRepository {
       ..lastActiveSession = DateTime.now()
       ..consecutiveDays = 1;
 
-    await _db.writeTxn(() async {
-      await _db.userProfileCollections.put(newProfile);
+    await isar.writeTxn(() async {
+      await isar.userProfileCollections.put(newProfile);
     });
 
     return newProfile;
   }
 
+  Future<Stream<List<UserProfileCollection>>> watchUserProfiles() async {
+    final isar = await _db;
+    return isar.userProfileCollections.where().watch();
+  }
+  
   //Update user xp
 
   //Update user name

@@ -1,14 +1,65 @@
+import 'package:binf_educational_app_redone/data/local/isar_service.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
 import 'package:binf_educational_app_redone/main.dart' as app;
+import 'package:isar_community/isar.dart';
+import 'helpers/perf_monitor.dart';
 
 void main() {
   // Initalize the hardware bridge
-  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  //IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
   // Bind the target device driver context
-  //final IntegrationTestWidgetsFlutterBinding binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  final IntegrationTestWidgetsFlutterBinding binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  tearDown(() async {
+      final existingInstance = Isar.getInstance();
+      if (existingInstance != null) {
+        await existingInstance.close(); 
+      }
+
+      IsarService().resetForTesting();
+  });
+
+  testWidgets('UI Frame Performance Benchmark Trace', (WidgetTester tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      await binding.watchPerformance(() async {
+        final Finder btn = find.byKey(const Key('welcome_go_to_dashboard_button'));
+        
+        await tester.tap(btn);
+        await tester.pumpAndSettle();
+      }, reportKey: 'dashboard_navigation_performance');
+  });
+
+  group('UI & System Resource Performance Tests', () {
+    final monitor = PerfMonitor();
+
+    testWidgets('Profile Welcome to Dashboard Transition Matrix', (tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+
+      monitor.startSection();
+
+      await binding.watchPerformance(() async {
+        final Finder btn = find.byKey(const Key('welcome_go_to_dashboard_button'));
+        expect(btn, findsOneWidget);
+        
+        await tester.tap(btn);
+        await tester.pumpAndSettle();
+      });
+
+      final resourceMetrics = monitor.endSection('welcome_to_dashboard_transition');
+
+      final Map<String, dynamic> combinedData = Map<String, dynamic>.from(binding.reportData ?? {});
+      combinedData['system_resources'] = resourceMetrics;
+      
+      binding.reportData = combinedData;
+      print('💾 Resource Footprint Logged: $resourceMetrics');
+    });
+  });
 
   testWidgets('End-to-End Onboarding Execution Trace Tracker', (WidgetTester tester) async {
     app.main();
