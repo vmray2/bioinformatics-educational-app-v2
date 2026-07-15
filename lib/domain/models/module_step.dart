@@ -2,7 +2,6 @@ import 'package:binf_educational_app_redone/domain/models/activity_config.dart';
 
 class ModuleStep {
   final String stepId;
-  final String moduleId;
   final String title;
   final String type;
   final String markdownInstructions;
@@ -15,7 +14,6 @@ class ModuleStep {
 
   ModuleStep({
     required this.stepId,
-    required this.moduleId,
     required this.title,
     required this.type,
     required this.markdownInstructions,
@@ -30,7 +28,6 @@ class ModuleStep {
   factory ModuleStep.fromJson(Map<String, dynamic> json) {
     return ModuleStep(
       stepId: json["stepId"] as String, 
-      moduleId: json["moduleId"] as String, 
       title: json["title"] as String, 
       type: json["type"] as String, 
       markdownInstructions: json["markdownInstructions"] as String, 

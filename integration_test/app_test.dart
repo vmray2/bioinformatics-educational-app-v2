@@ -88,7 +88,7 @@ void main() {
     //await binding.takeScreenshot('dashboard_screen');
 
     // Assert view transition success state
-    expect(find.text('Dashboard Screen'), findsOneWidget);
+    expect(find.text('Your Dashboard'), findsOneWidget);
     
     // Print out exact benchmark variables directly into your test logs
     print('METRIC: Complete Welcome to Dashboard Screen Navigation Duration: $operationalLatency ms');

@@ -1,10 +1,163 @@
 {
   "catalogId": "bioinformatics_mastery_v1",
   "catalogVersion": "1",
-  "totalModules": 8,
+  "totalModules": 9,
   "modules": [
     {
-        
+        "moduleId": "mod_1_bioinformatics_applications",
+        "moduleName": "Bioinfomatics Applications",
+        "description": "Overview of what bioinformatics is and what it can be used for",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C1": 50
+        },
+        "moduleSteps": [
+          {
+            "stepId": "mod_1_step_1_what_is_bioinformatics_md",
+            "title": "What is Bioinformatics",
+            "type": "markdown",
+            "markdownInstructions": "Bioinformatics definition",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "status": "Not Started",
+            "estTime":"3 min",
+            "description": "Brief explanaton of what bioinformatics is",
+            "activityConfig": null
+          },
+          {
+            "stepId": "mod_1_step_2_what_is_bioinformatics_used_for_md",
+            "title": "What is Bioinformatics Used For",
+            "type": "markdown",
+            "markdownInstructions": "List of bioinformatics uses",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "status": "Not Started",
+            "estTime":"5 min",
+            "description": "Brief list of what bioinformatics can be used for",
+            "activityConfig": null
+          },
+          {
+            "stepId": "mod_1_step_3_who_can_use_bioinformatics_md",
+            "title": "Who Can Use Bioinformatics",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "status": "Not Started",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          }
+        ]
+    },
+    {
+        "moduleId": "mod_2_basics_of_molecular_biology",
+        "moduleName": "Basics of Molecular Biology",
+        "description": "Background information on the central dogma of molecular biology and how it is relevant to bioinformatics",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C5": 50
+        },
+        "moduleSteps": [
+
+        ]
+
+    },
+    {
+        "moduleId": "mod_3_biological_data_types_formats_and_querying",
+        "moduleName": "Biological Data Types, Formats, and Querying",
+        "description": "Understand the different types of biological data and how they are typically queried and formatted in online",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C5": 50,
+          "C8": 50
+        },
+        "moduleSteps": [
+          
+        ]
+
+    },
+    {
+        "moduleId": "mod_4_bioinformatics_tools_and_algorithms",
+        "moduleName": "Bioinformatics Tools and Algorithms",
+        "description": "Learn common tools and algorithms used in bioinformatics and what their uses are",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C2": 50,
+          "C4": 50
+        },
+        "moduleSteps": [
+          
+        ]
+    },
+    {
+        "moduleId": "mod_5_statistical_concepts_and_bioinformatics",
+        "moduleName": "Statistics Concepts and Bioinformatics",
+        "description": "Learn how statistics can be used and evaluated for bioinformatics",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C3": 50
+        },
+        "moduleSteps": [
+          
+        ]
+    },
+    {
+        "moduleId": "mod_6_script_writing_for_bioinformatics",
+        "moduleName": "Script Writing for Bioinformatics",
+        "description": "Introduction to Python scripting to implement helpful algorithms for bioinformatics",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C7": 50
+        },
+        "moduleSteps": [
+          
+        ]
+    },
+    {
+        "moduleId": "mod_7_biological_modeling_using_bioinformatics",
+        "moduleName": "Biological Modeling Using Bioinformatics",
+        "description": "Learn how bioinformatics can be used to simulate biological interactions",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C6": 50
+        },
+        "moduleSteps": [
+          
+        ]
+    },
+    {
+        "moduleId": "mod_8_implications_of_biological_data",
+        "moduleName": "Implications of Biological Data",
+        "description": "Learn the ethical and social implications of biological data",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C9": 50
+        },
+        "moduleSteps": [
+          
+        ]
+    },
+    {
+        "moduleId": "mod_9_building_bioinformatics_pipelines",
+        "moduleName": "Building Bioinfomatics Pipelines",
+        "description": "Learn a how we can string different bioinformatics process/tools together to create a bioinformatics pipeline",
+        "status": "Not Started",
+        "estTime": "30 min",
+        "competenciesXp": {
+          "C1": 50
+        },
+        "moduleSteps": [
+          
+        ]
     }
   ]
 }
