@@ -23,34 +23,41 @@ const UserProfileCollectionSchema = CollectionSchema(
       name: r'accountCreated',
       type: IsarType.dateTime,
     ),
-    r'consecutiveDays': PropertySchema(
+    r'competencyXp': PropertySchema(
       id: 1,
+      name: r'competencyXp',
+      type: IsarType.objectList,
+
+      target: r'CompetencyXp',
+    ),
+    r'consecutiveDays': PropertySchema(
+      id: 2,
       name: r'consecutiveDays',
       type: IsarType.long,
     ),
     r'currentLevel': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'currentLevel',
       type: IsarType.long,
     ),
     r'lastActiveSession': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'lastActiveSession',
       type: IsarType.dateTime,
     ),
-    r'totalXp': PropertySchema(id: 4, name: r'totalXp', type: IsarType.long),
+    r'totalXp': PropertySchema(id: 5, name: r'totalXp', type: IsarType.long),
     r'userTitle': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'userTitle',
       type: IsarType.string,
     ),
     r'username': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'username',
       type: IsarType.string,
     ),
     r'xpForCompletion': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'xpForCompletion',
       type: IsarType.long,
     ),
@@ -63,7 +70,7 @@ const UserProfileCollectionSchema = CollectionSchema(
   idName: r'id',
   indexes: {},
   links: {},
-  embeddedSchemas: {},
+  embeddedSchemas: {r'CompetencyXp': CompetencyXpSchema},
 
   getId: _userProfileCollectionGetId,
   getLinks: _userProfileCollectionGetLinks,
@@ -77,6 +84,14 @@ int _userProfileCollectionEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.competencyXp.length * 3;
+  {
+    final offsets = allOffsets[CompetencyXp]!;
+    for (var i = 0; i < object.competencyXp.length; i++) {
+      final value = object.competencyXp[i];
+      bytesCount += CompetencyXpSchema.estimateSize(value, offsets, allOffsets);
+    }
+  }
   bytesCount += 3 + object.userTitle.length * 3;
   bytesCount += 3 + object.username.length * 3;
   return bytesCount;
@@ -89,13 +104,19 @@ void _userProfileCollectionSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeDateTime(offsets[0], object.accountCreated);
-  writer.writeLong(offsets[1], object.consecutiveDays);
-  writer.writeLong(offsets[2], object.currentLevel);
-  writer.writeDateTime(offsets[3], object.lastActiveSession);
-  writer.writeLong(offsets[4], object.totalXp);
-  writer.writeString(offsets[5], object.userTitle);
-  writer.writeString(offsets[6], object.username);
-  writer.writeLong(offsets[7], object.xpForCompletion);
+  writer.writeObjectList<CompetencyXp>(
+    offsets[1],
+    allOffsets,
+    CompetencyXpSchema.serialize,
+    object.competencyXp,
+  );
+  writer.writeLong(offsets[2], object.consecutiveDays);
+  writer.writeLong(offsets[3], object.currentLevel);
+  writer.writeDateTime(offsets[4], object.lastActiveSession);
+  writer.writeLong(offsets[5], object.totalXp);
+  writer.writeString(offsets[6], object.userTitle);
+  writer.writeString(offsets[7], object.username);
+  writer.writeLong(offsets[8], object.xpForCompletion);
 }
 
 UserProfileCollection _userProfileCollectionDeserialize(
@@ -106,14 +127,22 @@ UserProfileCollection _userProfileCollectionDeserialize(
 ) {
   final object = UserProfileCollection();
   object.accountCreated = reader.readDateTime(offsets[0]);
-  object.consecutiveDays = reader.readLong(offsets[1]);
-  object.currentLevel = reader.readLong(offsets[2]);
+  object.competencyXp =
+      reader.readObjectList<CompetencyXp>(
+        offsets[1],
+        CompetencyXpSchema.deserialize,
+        allOffsets,
+        CompetencyXp(),
+      ) ??
+      [];
+  object.consecutiveDays = reader.readLong(offsets[2]);
+  object.currentLevel = reader.readLong(offsets[3]);
   object.id = id;
-  object.lastActiveSession = reader.readDateTime(offsets[3]);
-  object.totalXp = reader.readLong(offsets[4]);
-  object.userTitle = reader.readString(offsets[5]);
-  object.username = reader.readString(offsets[6]);
-  object.xpForCompletion = reader.readLong(offsets[7]);
+  object.lastActiveSession = reader.readDateTime(offsets[4]);
+  object.totalXp = reader.readLong(offsets[5]);
+  object.userTitle = reader.readString(offsets[6]);
+  object.username = reader.readString(offsets[7]);
+  object.xpForCompletion = reader.readLong(offsets[8]);
   return object;
 }
 
@@ -127,18 +156,27 @@ P _userProfileCollectionDeserializeProp<P>(
     case 0:
       return (reader.readDateTime(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
+      return (reader.readObjectList<CompetencyXp>(
+                offset,
+                CompetencyXpSchema.deserialize,
+                allOffsets,
+                CompetencyXp(),
+              ) ??
+              [])
+          as P;
     case 2:
       return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readDateTime(offset)) as P;
-    case 4:
       return (reader.readLong(offset)) as P;
+    case 4:
+      return (reader.readDateTime(offset)) as P;
     case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 6:
       return (reader.readString(offset)) as P;
     case 7:
+      return (reader.readString(offset)) as P;
+    case 8:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -322,6 +360,83 @@ extension UserProfileCollectionQueryFilter
           upper: upper,
           includeUpper: includeUpper,
         ),
+      );
+    });
+  }
+
+  QueryBuilder<
+    UserProfileCollection,
+    UserProfileCollection,
+    QAfterFilterCondition
+  >
+  competencyXpLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencyXp', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProfileCollection,
+    UserProfileCollection,
+    QAfterFilterCondition
+  >
+  competencyXpIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencyXp', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProfileCollection,
+    UserProfileCollection,
+    QAfterFilterCondition
+  >
+  competencyXpIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencyXp', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProfileCollection,
+    UserProfileCollection,
+    QAfterFilterCondition
+  >
+  competencyXpLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencyXp', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<
+    UserProfileCollection,
+    UserProfileCollection,
+    QAfterFilterCondition
+  >
+  competencyXpLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencyXp', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProfileCollection,
+    UserProfileCollection,
+    QAfterFilterCondition
+  >
+  competencyXpLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'competencyXp',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
       );
     });
   }
@@ -1121,7 +1236,18 @@ extension UserProfileCollectionQueryObject
           UserProfileCollection,
           UserProfileCollection,
           QFilterCondition
-        > {}
+        > {
+  QueryBuilder<
+    UserProfileCollection,
+    UserProfileCollection,
+    QAfterFilterCondition
+  >
+  competencyXpElement(FilterQuery<CompetencyXp> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'competencyXp');
+    });
+  }
+}
 
 extension UserProfileCollectionQueryLinks
     on
@@ -1454,6 +1580,13 @@ extension UserProfileCollectionQueryProperty
     });
   }
 
+  QueryBuilder<UserProfileCollection, List<CompetencyXp>, QQueryOperations>
+  competencyXpProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'competencyXp');
+    });
+  }
+
   QueryBuilder<UserProfileCollection, int, QQueryOperations>
   consecutiveDaysProperty() {
     return QueryBuilder.apply(this, (query) {
@@ -1502,3 +1635,278 @@ extension UserProfileCollectionQueryProperty
     });
   }
 }
+
+// **************************************************************************
+// IsarEmbeddedGenerator
+// **************************************************************************
+
+// coverage:ignore-file
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+
+const CompetencyXpSchema = Schema(
+  name: r'CompetencyXp',
+  id: 6247488830330879439,
+  properties: {
+    r'competencyId': PropertySchema(
+      id: 0,
+      name: r'competencyId',
+      type: IsarType.string,
+    ),
+    r'totalXp': PropertySchema(id: 1, name: r'totalXp', type: IsarType.long),
+  },
+
+  estimateSize: _competencyXpEstimateSize,
+  serialize: _competencyXpSerialize,
+  deserialize: _competencyXpDeserialize,
+  deserializeProp: _competencyXpDeserializeProp,
+);
+
+int _competencyXpEstimateSize(
+  CompetencyXp object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  bytesCount += 3 + object.competencyId.length * 3;
+  return bytesCount;
+}
+
+void _competencyXpSerialize(
+  CompetencyXp object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeString(offsets[0], object.competencyId);
+  writer.writeLong(offsets[1], object.totalXp);
+}
+
+CompetencyXp _competencyXpDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  final object = CompetencyXp();
+  object.competencyId = reader.readString(offsets[0]);
+  object.totalXp = reader.readLong(offsets[1]);
+  return object;
+}
+
+P _competencyXpDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
+    case 0:
+      return (reader.readString(offset)) as P;
+    case 1:
+      return (reader.readLong(offset)) as P;
+    default:
+      throw IsarError('Unknown property with id $propertyId');
+  }
+}
+
+extension CompetencyXpQueryFilter
+    on QueryBuilder<CompetencyXp, CompetencyXp, QFilterCondition> {
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdEqualTo(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'competencyId',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'competencyId',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'competencyId', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  competencyIdIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'competencyId', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  totalXpEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'totalXp', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  totalXpGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'totalXp',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  totalXpLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'totalXp',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<CompetencyXp, CompetencyXp, QAfterFilterCondition>
+  totalXpBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'totalXp',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+}
+
+extension CompetencyXpQueryObject
+    on QueryBuilder<CompetencyXp, CompetencyXp, QFilterCondition> {}

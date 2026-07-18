@@ -1,0 +1,74 @@
+[
+    {
+        "competencyId": "c1_role_of_bioinformatics",
+        "name": "C1: Role of Bioinformatics",
+        "description": "Explain the role of computation and data mining in addressing hypothesis-driven and hypothesis-generating questions within the life sciences",
+        "associatedModules": ["mod_1_bioinformatics_applications", "mod_9_building_bioinformatics_pipelines"],
+        "associatedActivities": ["act_bioinformatics_pipeline_walkthrough"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c2_computational_concepts",
+        "name": "C2: Computational Concepts",
+        "description": "Summarize key computational concepts, such as algorithms and relational databases, and their applications in the life sciences",
+        "associatedModules": ["mod_4_bioinformatics_tools_and_algorithms", "mod_4_bioinformatics_tools_and_algorithms"],
+        "associatedActivities": ["act_sequence_alignment_matrix_tracer", "act_phylogenetic_tree_building"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c3_statistical_concepts",
+        "name": "C3: Statistical Concepts",
+        "description": "Apply statistical concepts used in bioinformatics",
+        "associatedModules": ["mod_5_statistical_concepts_and_bioinformatics"],
+        "associatedActivities": ["act_polygenic_risk_lab"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c4_bioinformatics_tools",
+        "name": "C4: Bioinformatics Tools",
+        "description": "Use bioinformatics tools to examine complex biological problems in evolution, information flow, and other important areas of biology",
+        "associatedModules": ["mod_4_bioinformatics_tools_and_algorithms", "mod_4_bioinformatics_tools_and_algorithms"],
+        "associatedActivities": ["act_sequence_alignment_matrix_tracer", "act_phylogenetic_tree_building"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c5_data_retrieval",
+        "name": "C5: Data Retrieval",
+        "description": "Find, retrieve, and organize various types of biological data",
+        "associatedModules": ["mod_2_basics_of_molecular_biology", "mod_3_biological_data_types_formats_and_querying"],
+        "associatedActivities": ["act_central_dogma_codon_slider", "act_data_hub_query_builder"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c6_model",
+        "name": "C6: Model",
+        "description": "Explore and/or model biological interactions, networks and data integration using bioinformatics",
+        "associatedModules": ["mod_7_biological_modeling_using_bioinformatics"],
+        "associatedActivities": ["act_molecular_docking_best_fit"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c7_scripting",
+        "name": "C7: Scripting",
+        "description": "Use command-line bioinformatics tools and write simple computer scripts",
+        "associatedModules": ["mod_6_script_writing_for_bioinformatics"],
+        "associatedActivities": ["act_python_scripting_for_bioinformatics"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c8_data_types",
+        "name": "C8: Data Types",
+        "description": "Describe and manage biological data types, structure, and reproducibility",
+        "associatedModules": ["mod_3_biological_data_types_formats_and_querying"],
+        "associatedActivities": ["act_data_hub_query_builder"],
+        "xpForCompletion": 200
+    },
+    {
+        "competencyId": "c9_implications",
+        "name": "C9: Implications",
+        "description": "Interpret the ethical, legal, medical, and social implications of biological data",
+        "associatedModules": ["mod_8_implications_of_biological_data"],
+        "associatedActivities": [],
+        "xpForCompletion": 200
+    }
+]

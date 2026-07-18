@@ -1,6 +1,11 @@
 import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
+import 'package:binf_educational_app_redone/domain/models/module_step.dart';
 import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
+import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
+import 'package:binf_educational_app_redone/presentation/providers/badge_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
+import 'package:binf_educational_app_redone/presentation/shared_widgets/activity_card.dart';
+import 'package:binf_educational_app_redone/presentation/shared_widgets/badge_card.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/module_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,10 +20,14 @@ class DashboardScreen extends ConsumerWidget{
 @override
   Widget build(BuildContext context, WidgetRef ref) {
     final curriculumAsync = ref.watch(curriculumProvider);
-    final unlockedIds = ref.watch(unlockedModulesProvider);
+    final activitiesAsync = ref.watch(activitiesProvider);
+    final badgesAsync = ref.watch(badgesProvider);
+    final userProgress = ref.watch(userProgressProvider);
+    
     final appColors = context.appColors;
 
     return Scaffold(
+      backgroundColor: appColors.backgroundColor,
       appBar: AppBar(
         title: Text(
           "Your Dashboard",
@@ -53,6 +62,7 @@ class DashboardScreen extends ConsumerWidget{
                 spacing: 16,
                 children: [
                   Expanded(
+                    flex: 4,
                     child: Container(
                       decoration: BoxDecoration(
                         color: appColors.standardCardBackgroundColor,
@@ -69,37 +79,112 @@ class DashboardScreen extends ConsumerWidget{
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 8,
                           children: [
-                            Text(
-                              "Progress"
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 6),
+                              child: Text(
+                                "Progress",
+                                style: GoogleFonts.inter(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold
+                                ),
+                              ),
                             ),
                             Text(
-                              "Level ${userProfile!.currentLevel}: ${userProfile!.userTitle}"
+                              "Level ${userProfile!.currentLevel}: ${userProfile!.userTitle}",
+                              textAlign: TextAlign.left,
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600
+                              ),
                             ),
-                            LinearProgressIndicator(
-                              value: userProfile!.totalXp / userProfile!.xpForCompletion,
-                              backgroundColor: Color.fromRGBO(194, 194, 194, 1),
-                              color: appColors.tertiaryColor,
-                              minHeight: 6,
-                              borderRadius: BorderRadius.circular(3),
+                            Container(
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Color.fromRGBO(194, 194, 194, 1), width: 1),
+                                borderRadius: BorderRadius.circular(16)
+                              ),
+                              child: LinearProgressIndicator(
+                                value: userProfile!.totalXp / userProfile!.xpForCompletion,
+                                backgroundColor: Color.fromRGBO(249, 248, 248, 1),
+                                color: appColors.tertiaryColor,
+                                minHeight: 16,
+                                borderRadius: BorderRadius.circular(16),
+                              ),
                             ),
+                            SizedBox(height: 4,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "Badges"
+                                Row(
+                                  spacing: 4,
+                                  children: [
+                                    Text(
+                                      "Badges",
+                                      style: GoogleFonts.inter(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600
+                                      ),
+                                    ),
+                                    Text(
+                                      "0/20",
+                                      style: GoogleFonts.inter(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w700,
+                                        color: appColors.textColor?.withValues(alpha: 0.7)
+                                      ),
+                                    ),
+                                  ],
                                 ),
                                 Text(
-                                  "View All >"
+                                  "View All >",
+                                  style: GoogleFonts.inter(
+                                    color: appColors.linkTextColor,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600
+                                  ),
                                 )
                               ],
-                            )
+                            ),
+                            Expanded(
+                              child: badgesAsync.when(
+                                data: (badges) => ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: badges.length,
+                                  itemBuilder: (context, index) {
+                                    final badge = badges[index];
+                                    final isLocked = !userProgress.unlockedBadgeIds.contains(badge.badgeId);
+                                    return BadgeCard(
+                                      badge: badge,
+                                      isLocked: isLocked,
+                                      onTap: () {
+                                                            
+                                      },
+                                    );
+                                  },
+                                ),
+                                
+                                loading: () => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                
+                                error: (err, stack) => Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    key: const Key('error_state'),
+                                    child: Text('Error loading curriculum data: $err'),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
                   Expanded(
+                    flex: 3,
                     child: Container(
                       decoration: BoxDecoration(
                         color: appColors.standardCardBackgroundColor,
@@ -122,13 +207,26 @@ class DashboardScreen extends ConsumerWidget{
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Modules"),
-                                  Text("View All >")
+                                  Text(
+                                    "Modules",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold
+                                    ),
+                                  ),
+                                  Text(
+                                    "View All >",
+                                    style: GoogleFonts.inter(
+                                      color: appColors.linkTextColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
                             Expanded(
-                              flex: 6,
+                              flex: 7,
                               child: SizedBox(
                                 child: curriculumAsync.when(
                                   data: (curriculum) => ListView.builder(
@@ -136,10 +234,23 @@ class DashboardScreen extends ConsumerWidget{
                                     itemCount: curriculum.modules.length,
                                     itemBuilder: (context, index) {
                                       final module = curriculum.modules[index];
-                                      final isLocked = !unlockedIds.contains(module.moduleId);
+                                      final isLocked = !userProgress.unlockedModuleIds.contains(module.moduleId);
+                                      int? status = userProgress.moduleMetrics[module.moduleId]?.status;
+                                      status = 0;
+                                      int totalModuleStepsCompleted = 0;
+                                      for (ModuleStep moduleStep in module.moduleSteps) {
+                                        if (userProgress.moduleStepMetrics[moduleStep.moduleStepId] != null) {
+                                          if (userProgress.moduleStepMetrics[moduleStep.moduleStepId]!.isCompleted) {
+                                            totalModuleStepsCompleted += 1;
+                                          }                                        
+                                        }
+                                      }
+                                      totalModuleStepsCompleted = 2;
                                       return ModuleCard(
                                         module: module,
+                                        totalModuleStepsCompleted: totalModuleStepsCompleted,
                                         isLocked: isLocked,
+                                        status: status,
                                         onTap: () {
                                         },
                                       );
@@ -166,6 +277,7 @@ class DashboardScreen extends ConsumerWidget{
                     ),
                   ),
                   Expanded(
+                    flex: 3,
                     child: Container(
                       decoration: BoxDecoration(
                         color: appColors.standardCardBackgroundColor,
@@ -188,23 +300,40 @@ class DashboardScreen extends ConsumerWidget{
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text("Activities"),
-                                  Text("View All >")
+                                  Text(
+                                    "Activities",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold
+                                    )
+                                  ),
+                                  Text(
+                                    "View All >",
+                                    style: GoogleFonts.inter(
+                                      fontSize: 12,
+                                      color: appColors.linkTextColor,
+                                      fontWeight: FontWeight.w600
+                                    )
+                                  )
                                 ],
                               ),
                             ),
                             Expanded(
                               flex: 6,
                               child: SizedBox(
-                                child: curriculumAsync.when(
-                                  data: (curriculum) => ListView.builder(
+                                child: activitiesAsync.when(
+                                  data: (activities) => ListView.builder(
                                     scrollDirection: Axis.horizontal,
-                                    itemCount: curriculum.modules.length,
+                                    itemCount: activities.length,
                                     itemBuilder: (context, index) {
-                                      final module = curriculum.modules[index];
-                                      final isLocked = !unlockedIds.contains(module.moduleId);
-                                      return ModuleCard(
-                                        module: module,
+                                      final activity = activities[index];
+                                      final isLocked = !userProgress.unlockedActivityIds.contains(activity.activityId);
+                                      bool? isCompleted = userProgress.activityMetrics[activity.activityId]?.isCompleted;
+                                      isCompleted ??= false;
+                                      
+                                      return ActivityCard(
+                                        activity: activity,
+                                        isCompleted: isCompleted,
                                         isLocked: isLocked,
                                         onTap: () {
                                           

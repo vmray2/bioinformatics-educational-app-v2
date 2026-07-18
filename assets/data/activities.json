@@ -1,0 +1,92 @@
+[
+    {
+        "activityId": "act_module_flashcards",
+        "name": "Module Flashcards",
+        "description": "Review terms learned throughout the modules using flashcards",
+        "instructions": ["Flip the flashcard to reveal the definition or term"],
+        "difficulty": "easy",
+        "estTime": "-",
+        "associatedModule": "mod_1-9",
+        "associatedCompetencies": []
+    },
+    {
+        "activityId": "act_central_dogma_codon_slider",
+        "name": "Central Dogma Codon Slider",
+        "description": "Using a codon slding window, find an open reading frame (ORF) in a DNA sequence and perform transcription and translation",
+        "instructions": ["Find and set the start and stop codons for the ORF", "Transcribe the found ORF to the mRNA sequence", "Translate the mRNA to the protein amino acid sequence"],
+        "difficulty": "easy",
+        "estTime": "10 min",
+        "associatedModule": "mod_2_basics_of_molecular_biology",
+        "associatedCompetencies": ["C5"]
+    },
+    {
+        "activityId": "act_data_hub_query_builder",
+        "name": "Data Hub Query Builder",
+        "description": "Use a simple query builder to build a query that finds the given molecule in the database",
+        "instructions": ["Search for the [molecule] for [organism]", "Select the correct molecule from the results list", "View information about the molecule", "Take quiz about molecule information"],
+        "difficulty": "easy",
+        "estTime": "10 min",
+        "associatedModule": "mod_3_biological_data_types_formats_and_querying",
+        "associatedCompetencies": ["C5", "C8"]
+    },
+    {
+        "activityId": "act_sequence_alignment",
+        "name": "Sequence Alignment",
+        "description": "Use the Needleman-Wunsch algorithm to fill in a sequence alignment matrix and then backtrace the matrix to get the alignment and score",
+        "instructions": ["Fill in the sequence alignment matrix using the Needleman-Wunsch algorithm", "Trace the matrix from bottom-right to top-left to get the alignment and score"],
+        "difficulty": "easy",
+        "estTime": "15 min",
+        "associatedModule": "mod_4_bioinformatics_tools_and_algorithms",
+        "associatedCompetencies": ["C2", "C4"]
+    },
+    {
+        "activityId": "act_phylogenetic_tree_building",
+        "name": "Phylogenetic Tree Building",
+        "description": "Group the points together to build a phylogenetic tree using the UPGMA algorithm",
+        "instructions": ["Select the correct data point intersection in the distance matrix and group them", "Calculate the new distances based on the grouped points"],
+        "difficulty": "easy",
+        "estTime": "15 min",
+        "associatedModule": "mod_4_bioinformatics_tools_and_algorithms",
+        "associatedCompetencies": ["C2", "C4"]
+    },
+    {
+        "activityId": "act_polygenic_risk_lab",
+        "name": "Polygenic Risk Lab",
+        "description": "Find the significant variants in a Genome-Wide Association Study (GWAS), view allelic contingency of the variants and calculate their Odds Ratios, and then give a clinical recommendation based on patient profile and Polygenic Risk Score (PRS)",
+        "instructions": ["Set the threshold for the GWAS Manhattan Plot and select the peak", "Drag and drop the values from the allelic contingency matrix into the formula to determine the Odds Ratio for a significant variant", "Give a clinical recommendation based on the given patient profile"],
+        "difficulty": "medium",
+        "estTime": "20 min",
+        "associatedModule": "mod_5_statistical_concepts_and_bioinformatics",
+        "associatedCompetencies": ["C3"]
+    },
+    {
+        "activityId": "act_python_scripting",
+        "name": "Python Scripting",
+        "description": "Write Python code to execute a bioinformatics algorithm",
+        "instructions": ["Drag and drop the lines of code to create a script that [script function]"],
+        "difficulty": "medium",
+        "estTime": "20 min",
+        "associatedModule": "mod_6_script_writing_for_bioinformatics",
+        "associatedCompetencies": ["C7"]
+    },
+    {
+        "activityId": "act_docking_best_fit",
+        "name": "Docking Best Fit",
+        "description": "Choose the best ligand for a protein's active binding site and then rotate it for the best fit",
+        "instructions": ["View the details for each ligand and select the best fit", "Rotate the ligand for the best binding"],
+        "difficulty": "hard",
+        "estTime": "20 min",
+        "associatedModule": "mod_7_biological_modeling_using_bioinformatics",
+        "associatedCompetencies": ["C6"]
+    },
+    {
+        "activityId": "act_pipeline_walkthrough",
+        "name": "Pipeline Walkthrough",
+        "description": "Walk through a bioinformatics pipelines by performing a series of activities",
+        "instructions": [],
+        "difficulty": "hard",
+        "estTime": "40 min",
+        "associatedModule": "mod_9_building_bioinformatics_pipelines",
+        "associatedCompetencies": ["C1"]
+    }
+]

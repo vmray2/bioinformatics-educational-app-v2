@@ -1,0 +1,32 @@
+[
+    {
+      "badgeId": "badge_01", 
+      "name": "Badge 1", 
+      "description": "Badge 1 description", 
+      "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png"
+    },
+    {
+      "badgeId": "badge_02", 
+      "name": "Badge 2", 
+      "description": "Badge 2 description", 
+      "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png"
+    },
+    {
+      "badgeId": "badge_03", 
+      "name": "Badge 3", 
+      "description": "Badge 3 description", 
+      "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png"
+    },
+    {
+      "badgeId": "badge_04", 
+      "name": "Badge 4", 
+      "description": "Badge 4 description", 
+      "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png"
+    },
+    {
+      "badgeId": "badge_05", 
+      "name": "Badge 5", 
+      "description": "Badge 5 description", 
+      "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png"
+    }
+]

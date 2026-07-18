@@ -4,7 +4,6 @@ class Module {
   final String moduleId;
   final String moduleName;
   final String description;
-  final String status;
   final String estTime;
   final Map<String, dynamic> competenciesXp;
   final List<ModuleStep> moduleSteps;
@@ -13,7 +12,6 @@ class Module {
     required this.moduleId,
     required this.moduleName,
     required this.description,
-    required this.status,
     required this.estTime,
     required this.competenciesXp,
     required this.moduleSteps
@@ -24,7 +22,6 @@ class Module {
       moduleId: json["moduleId"] as String, 
       moduleName: json["moduleName"] as String, 
       description: json["description"] as String, 
-      status: json["status"] as String, 
       estTime: json["estTime"] as String, 
       competenciesXp: json["competenciesXp"] as Map<String, dynamic>, 
       moduleSteps: (json["moduleSteps"] as List<dynamic>)

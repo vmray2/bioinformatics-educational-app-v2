@@ -9,6 +9,7 @@ class UserProfileCollection {
   late String username;
   late int currentLevel;
   late int totalXp;
+  late List<CompetencyXp> competencyXp;
   late int xpForCompletion = 1000;
 
   late String userTitle;
@@ -32,4 +33,10 @@ class UserProfileCollection {
     return progressPercentage;
   }
 
+}
+
+@Embedded()
+class CompetencyXp {
+  late String competencyId;
+  late int totalXp;
 }
