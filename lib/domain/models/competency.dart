@@ -2,8 +2,8 @@ class Competency {
   final String competencyId;
   final String name;
   final String description;
-  final List<String> associatedModules;
-  final List<String> associatedActivities;
+  final List<dynamic> associatedModules;
+  final List<dynamic> associatedActivities;
   final int xpForCompletion;
 
   Competency ({
@@ -20,8 +20,8 @@ class Competency {
       competencyId: json["competencyId"] as String, 
       name: json["name"] as String, 
       description: json["description"] as String, 
-      associatedModules: json["associatedModules"] as List<String>, 
-      associatedActivities: json["associatedActivities"] as List<String>, 
+      associatedModules: json["associatedModules"] as List<dynamic>, 
+      associatedActivities: json["associatedActivities"] as List<dynamic>, 
       xpForCompletion: json["xpForCompletion"] as int
     );
   }

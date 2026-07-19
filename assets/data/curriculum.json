@@ -9,7 +9,7 @@
         "description": "Overview of what bioinformatics is and what it can be used for",
         "estTime": "30 min",
         "competenciesXp": {
-          "C1": 50
+          "c1_role_of_bioinformatics": 50
         },
         "moduleSteps": [
           {
@@ -53,7 +53,7 @@
         "description": "Background information on the central dogma of molecular biology and how it is relevant to bioinformatics",
         "estTime": "30 min",
         "competenciesXp": {
-          "C5": 50
+          "c5_data_retrieval": 50
         },
         "moduleSteps": [
 
@@ -66,8 +66,8 @@
         "description": "Understand the different types of biological data and how they are typically queried and formatted in online",
         "estTime": "30 min",
         "competenciesXp": {
-          "C5": 50,
-          "C8": 50
+          "c5_data_retrieval": 50,
+          "c8_data_types": 50
         },
         "moduleSteps": [
           
@@ -80,8 +80,8 @@
         "description": "Learn common tools and algorithms used in bioinformatics and what their uses are",
         "estTime": "30 min",
         "competenciesXp": {
-          "C2": 50,
-          "C4": 50
+          "c2_computational_concepts": 50,
+          "c4_bioinformatics_tools": 50
         },
         "moduleSteps": [
           
@@ -93,7 +93,7 @@
         "description": "Learn how statistics can be used and evaluated for bioinformatics",
         "estTime": "30 min",
         "competenciesXp": {
-          "C3": 50
+          "c3_statistical_concepts": 50
         },
         "moduleSteps": [
           
@@ -105,7 +105,7 @@
         "description": "Introduction to Python scripting to implement helpful algorithms for bioinformatics",
         "estTime": "30 min",
         "competenciesXp": {
-          "C7": 50
+          "c7_scripting": 50
         },
         "moduleSteps": [
           
@@ -117,7 +117,7 @@
         "description": "Learn how bioinformatics can be used to simulate biological interactions",
         "estTime": "30 min",
         "competenciesXp": {
-          "C6": 50
+          "c6_model": 50
         },
         "moduleSteps": [
           
@@ -129,7 +129,7 @@
         "description": "Learn the ethical and social implications of biological data",
         "estTime": "30 min",
         "competenciesXp": {
-          "C9": 50
+          "c9_implications": 50
         },
         "moduleSteps": [
           
@@ -141,7 +141,7 @@
         "description": "Learn a how we can string different bioinformatics process/tools together to create a bioinformatics pipeline",
         "estTime": "30 min",
         "competenciesXp": {
-          "C1": 50
+          "c1_role_of_bioinformatics": 50
         },
         "moduleSteps": [
           

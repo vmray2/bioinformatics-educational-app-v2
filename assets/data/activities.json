@@ -17,7 +17,7 @@
         "difficulty": "easy",
         "estTime": "10 min",
         "associatedModule": "mod_2_basics_of_molecular_biology",
-        "associatedCompetencies": ["C5"]
+        "associatedCompetencies": ["c5_data_retrieval"]
     },
     {
         "activityId": "act_data_hub_query_builder",
@@ -27,7 +27,7 @@
         "difficulty": "easy",
         "estTime": "10 min",
         "associatedModule": "mod_3_biological_data_types_formats_and_querying",
-        "associatedCompetencies": ["C5", "C8"]
+        "associatedCompetencies": ["c5_data_retrieval", "c8_data_types"]
     },
     {
         "activityId": "act_sequence_alignment",
@@ -37,7 +37,7 @@
         "difficulty": "easy",
         "estTime": "15 min",
         "associatedModule": "mod_4_bioinformatics_tools_and_algorithms",
-        "associatedCompetencies": ["C2", "C4"]
+        "associatedCompetencies": ["c2_computational_concepts", "c4_bioinformatics_tools"]
     },
     {
         "activityId": "act_phylogenetic_tree_building",
@@ -47,7 +47,7 @@
         "difficulty": "easy",
         "estTime": "15 min",
         "associatedModule": "mod_4_bioinformatics_tools_and_algorithms",
-        "associatedCompetencies": ["C2", "C4"]
+        "associatedCompetencies": ["c2_computational_concepts", "c4_bioinformatics_tools"]
     },
     {
         "activityId": "act_polygenic_risk_lab",
@@ -57,7 +57,7 @@
         "difficulty": "medium",
         "estTime": "20 min",
         "associatedModule": "mod_5_statistical_concepts_and_bioinformatics",
-        "associatedCompetencies": ["C3"]
+        "associatedCompetencies": ["c3_statistical_concepts"]
     },
     {
         "activityId": "act_python_scripting",
@@ -67,7 +67,7 @@
         "difficulty": "medium",
         "estTime": "20 min",
         "associatedModule": "mod_6_script_writing_for_bioinformatics",
-        "associatedCompetencies": ["C7"]
+        "associatedCompetencies": ["c7_scripting"]
     },
     {
         "activityId": "act_docking_best_fit",
@@ -77,7 +77,7 @@
         "difficulty": "hard",
         "estTime": "20 min",
         "associatedModule": "mod_7_biological_modeling_using_bioinformatics",
-        "associatedCompetencies": ["C6"]
+        "associatedCompetencies": ["c6_model"]
     },
     {
         "activityId": "act_pipeline_walkthrough",
@@ -87,6 +87,6 @@
         "difficulty": "hard",
         "estTime": "40 min",
         "associatedModule": "mod_9_building_bioinformatics_pipelines",
-        "associatedCompetencies": ["C1"]
+        "associatedCompetencies": ["c1_role_of_bioinformatics"]
     }
 ]

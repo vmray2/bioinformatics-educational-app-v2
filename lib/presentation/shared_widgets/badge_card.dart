@@ -20,7 +20,7 @@ class BadgeCard extends StatelessWidget {
     final appColors = context.appColors;
 
     return SizedBox(
-      height: 30,
+      //height: 30,
       width: 100,
       child: Card(
         elevation: 0,
@@ -39,7 +39,7 @@ class BadgeCard extends StatelessWidget {
                 /*Expanded(
                   child: !isLocked ? Container() : Icon(Icons.lock, size: 20,)
                 ),*/
-                Expanded(
+                Flexible(
                   flex: 3,
                   child: Center(
                     child: Image.asset(
@@ -47,11 +47,11 @@ class BadgeCard extends StatelessWidget {
                       //width: 50,
                       //height: 50,
                       opacity: !isLocked ? const AlwaysStoppedAnimation(1) : const AlwaysStoppedAnimation(0.4),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
-                Expanded(
+                Flexible(
                   child: Center(
                     child: Text(
                       badge.name,
@@ -59,6 +59,7 @@ class BadgeCard extends StatelessWidget {
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
+                        height: 1,
                         color: !isLocked ? appColors.textColor : appColors.textColor?.withValues(alpha: 0.4)
                       ),
                     ),

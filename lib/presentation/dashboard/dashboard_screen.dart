@@ -1,5 +1,6 @@
 import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
 import 'package:binf_educational_app_redone/domain/models/module_step.dart';
+import 'package:binf_educational_app_redone/presentation/module/module_overview_screen.dart';
 import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/badge_provider.dart';
@@ -24,6 +25,8 @@ class DashboardScreen extends ConsumerWidget{
     final badgesAsync = ref.watch(badgesProvider);
     final userProgress = ref.watch(userProgressProvider);
     
+    final totalUnlockedBadges = userProgress.unlockedBadgeIds.length;
+
     final appColors = context.appColors;
 
     return Scaffold(
@@ -54,15 +57,15 @@ class DashboardScreen extends ConsumerWidget{
       ),
       body: Column(
         children: [
-          Expanded(
-            flex: 9,
+          Flexible(
+            flex: 100,
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 spacing: 16,
                 children: [
-                  Expanded(
-                    flex: 4,
+                  Flexible(
+                    flex: 28,
                     child: Container(
                       decoration: BoxDecoration(
                         color: appColors.standardCardBackgroundColor,
@@ -80,74 +83,91 @@ class DashboardScreen extends ConsumerWidget{
                         padding: const EdgeInsets.all(16.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          spacing: 8,
+                          //spacing: 8,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 6),
-                              child: Text(
-                                "Progress",
-                                style: GoogleFonts.inter(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "Level ${userProfile!.currentLevel}: ${userProfile!.userTitle}",
-                              textAlign: TextAlign.left,
-                              style: GoogleFonts.inter(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Color.fromRGBO(194, 194, 194, 1), width: 1),
-                                borderRadius: BorderRadius.circular(16)
-                              ),
-                              child: LinearProgressIndicator(
-                                value: userProfile!.totalXp / userProfile!.xpForCompletion,
-                                backgroundColor: Color.fromRGBO(249, 248, 248, 1),
-                                color: appColors.tertiaryColor,
-                                minHeight: 16,
-                                borderRadius: BorderRadius.circular(16),
-                              ),
-                            ),
-                            SizedBox(height: 4,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  spacing: 4,
-                                  children: [
-                                    Text(
-                                      "Badges",
-                                      style: GoogleFonts.inter(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600
-                                      ),
-                                    ),
-                                    Text(
-                                      "0/20",
-                                      style: GoogleFonts.inter(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w700,
-                                        color: appColors.textColor?.withValues(alpha: 0.7)
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Text(
-                                  "View All >",
+                            Flexible(
+                              flex: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 0),
+                                child: Text(
+                                  "Progress",
                                   style: GoogleFonts.inter(
-                                    color: appColors.linkTextColor,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w600
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold
                                   ),
-                                )
-                              ],
+                                ),
+                              ),
                             ),
-                            Expanded(
+                            Flexible(flex: 2, child: SizedBox(height: 50,)),
+                            Flexible(
+                              flex: 2,
+                              child: Text(
+                                "Level ${userProfile!.currentLevel}: ${userProfile!.userTitle}",
+                                textAlign: TextAlign.left,
+                                style: GoogleFonts.inter(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600
+                                ),
+                              ),
+                            ),
+                            Flexible(flex: 1, child: SizedBox(height: 50,)),
+                            Flexible(
+                              flex: 2,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Color.fromRGBO(194, 194, 194, 1), width: 1),
+                                  borderRadius: BorderRadius.circular(16)
+                                ),
+                                child: LinearProgressIndicator(
+                                  value: userProfile!.totalXp / userProfile!.xpForCompletion,
+                                  backgroundColor: Color.fromRGBO(249, 248, 248, 1),
+                                  color: appColors.tertiaryColor,
+                                  minHeight: 16,
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                              ),
+                            ),
+                            Flexible(flex: 2, child: SizedBox(height: 50,)),
+                            Flexible(
+                              flex: 2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    spacing: 4,
+                                    children: [
+                                      Text(
+                                        "Badges",
+                                        style: GoogleFonts.inter(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w600,
+                                          height: 1
+                                        ),
+                                      ),
+                                      Text(
+                                        "$totalUnlockedBadges/20",
+                                        style: GoogleFonts.inter(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w700,
+                                          color: appColors.textColor?.withValues(alpha: 0.7)
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    "View All >",
+                                    style: GoogleFonts.inter(
+                                      color: appColors.linkTextColor,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Flexible(flex: 1, child: SizedBox(height: 5,)),
+                            Flexible(
+                              flex: 9,
                               child: badgesAsync.when(
                                 data: (badges) => ListView.builder(
                                   scrollDirection: Axis.horizontal,
@@ -183,8 +203,8 @@ class DashboardScreen extends ConsumerWidget{
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
+                  Flexible(
+                    flex: 25,
                     child: Container(
                       decoration: BoxDecoration(
                         color: appColors.standardCardBackgroundColor,
@@ -203,7 +223,8 @@ class DashboardScreen extends ConsumerWidget{
                         child: Column(
                           spacing: 8,
                           children: [
-                            Expanded(
+                            Flexible(
+                              flex: 3,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -225,8 +246,8 @@ class DashboardScreen extends ConsumerWidget{
                                 ],
                               ),
                             ),
-                            Expanded(
-                              flex: 7,
+                            Flexible(
+                              flex: 18,
                               child: SizedBox(
                                 child: curriculumAsync.when(
                                   data: (curriculum) => ListView.builder(
@@ -252,6 +273,12 @@ class DashboardScreen extends ConsumerWidget{
                                         isLocked: isLocked,
                                         status: status,
                                         onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ModuleOverviewScreen(moduleId: module.moduleId)
+                                            )
+                                          );
                                         },
                                       );
                                     },
@@ -276,8 +303,8 @@ class DashboardScreen extends ConsumerWidget{
                       ),
                     ),
                   ),
-                  Expanded(
-                    flex: 3,
+                  Flexible(
+                    flex: 25,
                     child: Container(
                       decoration: BoxDecoration(
                         color: appColors.standardCardBackgroundColor,
@@ -296,7 +323,8 @@ class DashboardScreen extends ConsumerWidget{
                         child: Column(
                           spacing: 8,
                           children: [
-                            Expanded(
+                            Flexible(
+                              flex: 3,
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
@@ -318,8 +346,8 @@ class DashboardScreen extends ConsumerWidget{
                                 ],
                               ),
                             ),
-                            Expanded(
-                              flex: 6,
+                            Flexible(
+                              flex: 18,
                               child: SizedBox(
                                 child: activitiesAsync.when(
                                   data: (activities) => ListView.builder(
