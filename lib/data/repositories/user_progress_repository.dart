@@ -23,7 +23,18 @@ class UserProgressRepository {
       moduleMetrics: {},
       moduleStepMetrics: {},
       activityMetrics: {},
-      badgeMetrics: {}
+      badgeMetrics: {},
+      competencyMetrics: {
+        "c1_role_of_bioinformatics": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c2_computational_concepts": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c3_statistical_concepts": CompetencyMetrics(isCompleted: false, totalXp: 0),
+        "c4_bioinformatics_tools": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c5_data_retrieval": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c6_model": CompetencyMetrics(isCompleted: false, totalXp: 0),
+        "c7_scripting": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c8_data_types": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c9_implications": CompetencyMetrics(isCompleted: false, totalXp: 0)
+      }
     );
 
     await _localDb.saveUserProgress(initialProgress);

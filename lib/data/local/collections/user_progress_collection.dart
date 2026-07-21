@@ -13,6 +13,7 @@ class UserProgressCollection {
   List<IsarModuleStepEntry> moduleSteps = [];
   List<IsarActivityEntry> activities = [];
   List<IsarBadgeEntry> badges = [];
+  List<IsarCompetencyEntry> competencies = [];
 }
 
 @Embedded()
@@ -42,4 +43,11 @@ class IsarActivityEntry {
 class IsarBadgeEntry {
   String? badgeId;
   DateTime? dateUnlocked;
+}
+
+@Embedded()
+class IsarCompetencyEntry {
+  String? competencyId;
+  int? totalXp;
+  bool isCompleted = false;
 }

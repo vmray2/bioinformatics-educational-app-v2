@@ -32,32 +32,39 @@ const UserProgressCollectionSchema = CollectionSchema(
 
       target: r'IsarBadgeEntry',
     ),
-    r'moduleSteps': PropertySchema(
+    r'competencies': PropertySchema(
       id: 2,
+      name: r'competencies',
+      type: IsarType.objectList,
+
+      target: r'IsarCompetencyEntry',
+    ),
+    r'moduleSteps': PropertySchema(
+      id: 3,
       name: r'moduleSteps',
       type: IsarType.objectList,
 
       target: r'IsarModuleStepEntry',
     ),
     r'modules': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'modules',
       type: IsarType.objectList,
 
       target: r'IsarModuleEntry',
     ),
     r'unlockedActivities': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'unlockedActivities',
       type: IsarType.stringList,
     ),
     r'unlockedBadges': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'unlockedBadges',
       type: IsarType.stringList,
     ),
     r'unlockedModules': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'unlockedModules',
       type: IsarType.stringList,
     ),
@@ -75,6 +82,7 @@ const UserProgressCollectionSchema = CollectionSchema(
     r'IsarModuleStepEntry': IsarModuleStepEntrySchema,
     r'IsarActivityEntry': IsarActivityEntrySchema,
     r'IsarBadgeEntry': IsarBadgeEntrySchema,
+    r'IsarCompetencyEntry': IsarCompetencyEntrySchema,
   },
 
   getId: _userProgressCollectionGetId,
@@ -107,6 +115,18 @@ int _userProgressCollectionEstimateSize(
     for (var i = 0; i < object.badges.length; i++) {
       final value = object.badges[i];
       bytesCount += IsarBadgeEntrySchema.estimateSize(
+        value,
+        offsets,
+        allOffsets,
+      );
+    }
+  }
+  bytesCount += 3 + object.competencies.length * 3;
+  {
+    final offsets = allOffsets[IsarCompetencyEntry]!;
+    for (var i = 0; i < object.competencies.length; i++) {
+      final value = object.competencies[i];
+      bytesCount += IsarCompetencyEntrySchema.estimateSize(
         value,
         offsets,
         allOffsets,
@@ -179,21 +199,27 @@ void _userProgressCollectionSerialize(
     IsarBadgeEntrySchema.serialize,
     object.badges,
   );
-  writer.writeObjectList<IsarModuleStepEntry>(
+  writer.writeObjectList<IsarCompetencyEntry>(
     offsets[2],
+    allOffsets,
+    IsarCompetencyEntrySchema.serialize,
+    object.competencies,
+  );
+  writer.writeObjectList<IsarModuleStepEntry>(
+    offsets[3],
     allOffsets,
     IsarModuleStepEntrySchema.serialize,
     object.moduleSteps,
   );
   writer.writeObjectList<IsarModuleEntry>(
-    offsets[3],
+    offsets[4],
     allOffsets,
     IsarModuleEntrySchema.serialize,
     object.modules,
   );
-  writer.writeStringList(offsets[4], object.unlockedActivities);
-  writer.writeStringList(offsets[5], object.unlockedBadges);
-  writer.writeStringList(offsets[6], object.unlockedModules);
+  writer.writeStringList(offsets[5], object.unlockedActivities);
+  writer.writeStringList(offsets[6], object.unlockedBadges);
+  writer.writeStringList(offsets[7], object.unlockedModules);
 }
 
 UserProgressCollection _userProgressCollectionDeserialize(
@@ -219,10 +245,18 @@ UserProgressCollection _userProgressCollectionDeserialize(
         IsarBadgeEntry(),
       ) ??
       [];
+  object.competencies =
+      reader.readObjectList<IsarCompetencyEntry>(
+        offsets[2],
+        IsarCompetencyEntrySchema.deserialize,
+        allOffsets,
+        IsarCompetencyEntry(),
+      ) ??
+      [];
   object.id = id;
   object.moduleSteps =
       reader.readObjectList<IsarModuleStepEntry>(
-        offsets[2],
+        offsets[3],
         IsarModuleStepEntrySchema.deserialize,
         allOffsets,
         IsarModuleStepEntry(),
@@ -230,15 +264,15 @@ UserProgressCollection _userProgressCollectionDeserialize(
       [];
   object.modules =
       reader.readObjectList<IsarModuleEntry>(
-        offsets[3],
+        offsets[4],
         IsarModuleEntrySchema.deserialize,
         allOffsets,
         IsarModuleEntry(),
       ) ??
       [];
-  object.unlockedActivities = reader.readStringList(offsets[4]) ?? [];
-  object.unlockedBadges = reader.readStringList(offsets[5]) ?? [];
-  object.unlockedModules = reader.readStringList(offsets[6]) ?? [];
+  object.unlockedActivities = reader.readStringList(offsets[5]) ?? [];
+  object.unlockedBadges = reader.readStringList(offsets[6]) ?? [];
+  object.unlockedModules = reader.readStringList(offsets[7]) ?? [];
   return object;
 }
 
@@ -268,6 +302,15 @@ P _userProgressCollectionDeserializeProp<P>(
               [])
           as P;
     case 2:
+      return (reader.readObjectList<IsarCompetencyEntry>(
+                offset,
+                IsarCompetencyEntrySchema.deserialize,
+                allOffsets,
+                IsarCompetencyEntry(),
+              ) ??
+              [])
+          as P;
+    case 3:
       return (reader.readObjectList<IsarModuleStepEntry>(
                 offset,
                 IsarModuleStepEntrySchema.deserialize,
@@ -276,7 +319,7 @@ P _userProgressCollectionDeserializeProp<P>(
               ) ??
               [])
           as P;
-    case 3:
+    case 4:
       return (reader.readObjectList<IsarModuleEntry>(
                 offset,
                 IsarModuleEntrySchema.deserialize,
@@ -285,11 +328,11 @@ P _userProgressCollectionDeserializeProp<P>(
               ) ??
               [])
           as P;
-    case 4:
-      return (reader.readStringList(offset) ?? []) as P;
     case 5:
       return (reader.readStringList(offset) ?? []) as P;
     case 6:
+      return (reader.readStringList(offset) ?? []) as P;
+    case 7:
       return (reader.readStringList(offset) ?? []) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -572,6 +615,83 @@ extension UserProgressCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.listLength(
         r'badges',
+        lower,
+        includeLower,
+        upper,
+        includeUpper,
+      );
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
+  competenciesLengthEqualTo(int length) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencies', length, true, length, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
+  competenciesIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencies', 0, true, 0, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
+  competenciesIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencies', 0, false, 999999, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
+  competenciesLengthLessThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencies', 0, true, length, include);
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
+  competenciesLengthGreaterThan(int length, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(r'competencies', length, include, 999999, true);
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
+  competenciesLengthBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.listLength(
+        r'competencies',
         lower,
         includeLower,
         upper,
@@ -1638,6 +1758,17 @@ extension UserProgressCollectionQueryObject
     UserProgressCollection,
     QAfterFilterCondition
   >
+  competenciesElement(FilterQuery<IsarCompetencyEntry> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'competencies');
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
   moduleStepsElement(FilterQuery<IsarModuleStepEntry> q) {
     return QueryBuilder.apply(this, (query) {
       return query.object(q, r'moduleSteps');
@@ -1741,6 +1872,17 @@ extension UserProgressCollectionQueryProperty
   badgesProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'badges');
+    });
+  }
+
+  QueryBuilder<
+    UserProgressCollection,
+    List<IsarCompetencyEntry>,
+    QQueryOperations
+  >
+  competenciesProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'competencies');
     });
   }
 
@@ -3281,3 +3423,343 @@ extension IsarBadgeEntryQueryFilter
 
 extension IsarBadgeEntryQueryObject
     on QueryBuilder<IsarBadgeEntry, IsarBadgeEntry, QFilterCondition> {}
+
+// coverage:ignore-file
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+
+const IsarCompetencyEntrySchema = Schema(
+  name: r'IsarCompetencyEntry',
+  id: 5389832781146242804,
+  properties: {
+    r'competencyId': PropertySchema(
+      id: 0,
+      name: r'competencyId',
+      type: IsarType.string,
+    ),
+    r'isCompleted': PropertySchema(
+      id: 1,
+      name: r'isCompleted',
+      type: IsarType.bool,
+    ),
+    r'totalXp': PropertySchema(id: 2, name: r'totalXp', type: IsarType.long),
+  },
+
+  estimateSize: _isarCompetencyEntryEstimateSize,
+  serialize: _isarCompetencyEntrySerialize,
+  deserialize: _isarCompetencyEntryDeserialize,
+  deserializeProp: _isarCompetencyEntryDeserializeProp,
+);
+
+int _isarCompetencyEntryEstimateSize(
+  IsarCompetencyEntry object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  {
+    final value = object.competencyId;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  return bytesCount;
+}
+
+void _isarCompetencyEntrySerialize(
+  IsarCompetencyEntry object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeString(offsets[0], object.competencyId);
+  writer.writeBool(offsets[1], object.isCompleted);
+  writer.writeLong(offsets[2], object.totalXp);
+}
+
+IsarCompetencyEntry _isarCompetencyEntryDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  final object = IsarCompetencyEntry();
+  object.competencyId = reader.readStringOrNull(offsets[0]);
+  object.isCompleted = reader.readBool(offsets[1]);
+  object.totalXp = reader.readLongOrNull(offsets[2]);
+  return object;
+}
+
+P _isarCompetencyEntryDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
+    case 0:
+      return (reader.readStringOrNull(offset)) as P;
+    case 1:
+      return (reader.readBool(offset)) as P;
+    case 2:
+      return (reader.readLongOrNull(offset)) as P;
+    default:
+      throw IsarError('Unknown property with id $propertyId');
+  }
+}
+
+extension IsarCompetencyEntryQueryFilter
+    on
+        QueryBuilder<
+          IsarCompetencyEntry,
+          IsarCompetencyEntry,
+          QFilterCondition
+        > {
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'competencyId'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'competencyId'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdEqualTo(String? value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'competencyId',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdStartsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.startsWith(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdEndsWith(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.endsWith(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.contains(
+          property: r'competencyId',
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.matches(
+          property: r'competencyId',
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'competencyId', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  competencyIdIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(property: r'competencyId', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  isCompletedEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'isCompleted', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  totalXpIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'totalXp'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  totalXpIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'totalXp'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  totalXpEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'totalXp', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  totalXpGreaterThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'totalXp',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  totalXpLessThan(int? value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'totalXp',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarCompetencyEntry, IsarCompetencyEntry, QAfterFilterCondition>
+  totalXpBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'totalXp',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+}
+
+extension IsarCompetencyEntryQueryObject
+    on
+        QueryBuilder<
+          IsarCompetencyEntry,
+          IsarCompetencyEntry,
+          QFilterCondition
+        > {}

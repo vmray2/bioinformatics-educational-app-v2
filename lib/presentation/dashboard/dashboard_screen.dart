@@ -8,6 +8,7 @@ import 'package:binf_educational_app_redone/presentation/providers/user_progress
 import 'package:binf_educational_app_redone/presentation/shared_widgets/activity_card.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/badge_card.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/module_card.dart';
+import 'package:binf_educational_app_redone/presentation/user_profile/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
@@ -435,6 +436,16 @@ class DashboardScreen extends ConsumerWidget{
                 label: "Settings"
               )
             ],
+            onTap: (value) {
+              if (value == 2) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => UserProfileScreen()
+                  )
+                );
+              }
+            },
         ),
       ),
     );

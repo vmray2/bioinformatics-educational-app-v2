@@ -29,10 +29,8 @@ class UserProfileRepository {
       ..accountCreated = DateTime.now()
       ..lastActiveSession = DateTime.now()
       ..consecutiveDays = 1
-      ..competencyXp = competencyIdList.map((e) => CompetencyXp()
-        ..competencyId = e
-        ..totalXp = 0
-      ).toList();
+      ..profileImgPath = "assets/img/Bioinformatics Computer Sprite 256.png";
+
 
     await isar.writeTxn(() async {
       await isar.userProfileCollections.put(newProfile);

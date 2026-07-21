@@ -113,6 +113,21 @@ class UserProgressNotifier extends Notifier<UserProgress> {
     _saveToLocal();
   }
 
+    void updateCompetencyProgress(String competencyId, int xp, bool isCompleted) {
+    final currentMetrics = state.competencyMetrics[competencyId] ?? const CompetencyMetrics();
+    
+    final updatedMetrics = currentMetrics.copyWith(
+      totalXp: currentMetrics.totalXp! + xp, 
+      isCompleted: isCompleted
+    );
+
+    state = state.copyWith(
+      competencyMetrics: {...state.competencyMetrics, competencyId: updatedMetrics},
+    );
+
+    _saveToLocal();
+  }
+
 
   void _saveToLocal() {
     final currentState = state;

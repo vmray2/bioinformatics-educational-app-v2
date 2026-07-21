@@ -72,6 +72,23 @@ class BadgeMetrics {
   }
 }
 
+class CompetencyMetrics {
+  final int? totalXp;
+  final bool isCompleted;
+
+  const CompetencyMetrics({
+    this.totalXp,
+    this.isCompleted = false
+  });
+
+  CompetencyMetrics copyWith({int? totalXp, bool? isCompleted}) {
+    return CompetencyMetrics(
+      totalXp: totalXp ?? this.totalXp,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
+}
+
 class UserProgress {
   final Set<String> unlockedModuleIds;
   final Map<String, ModuleMetrics> moduleMetrics;
@@ -84,6 +101,7 @@ class UserProgress {
   final Set<String> unlockedBadgeIds;
   final Map<String, BadgeMetrics> badgeMetrics;
 
+  final Map<String, CompetencyMetrics> competencyMetrics;
 
 
   const UserProgress({
@@ -94,7 +112,28 @@ class UserProgress {
     this.activityMetrics = const {},
     this.unlockedBadgeIds = const {},
     this.badgeMetrics = const {},
+    this.competencyMetrics = const {} 
+    
+    /*{
+        "c1_role_of_bioinformatics": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c2_computational_concepts": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c3_statistical_concepts": CompetencyMetrics(isCompleted: false, totalXp: 0),
+        "c4_bioinformatics_tools": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c5_data_retrieval": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c6_model": CompetencyMetrics(isCompleted: false, totalXp: 0),
+        "c7_scripting": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c8_data_types": CompetencyMetrics(isCompleted: false, totalXp: 0), 
+        "c9_implications": CompetencyMetrics(isCompleted: false, totalXp: 0)
+    }*/
+    
   });
+
+  CompetencyMetrics getCompetency(String competencyId) {
+    return competencyMetrics[competencyId] ?? const CompetencyMetrics(
+      isCompleted: false,
+      totalXp: 0,
+    );
+  }
 
   UserProgress copyWith({
     Set<String>? unlockedModuleIds,
@@ -104,6 +143,7 @@ class UserProgress {
     Map<String, ActivityMetrics>? activityMetrics,
     Set<String>? unlockedBadgeIds,
     Map<String, BadgeMetrics>? badgeMetrics,
+    Map<String, CompetencyMetrics>? competencyMetrics,
   }) {
     return UserProgress(
       unlockedModuleIds: unlockedModuleIds ?? this.unlockedModuleIds,
@@ -113,6 +153,7 @@ class UserProgress {
       activityMetrics: activityMetrics ?? this.activityMetrics,
       unlockedBadgeIds: unlockedBadgeIds ?? this.unlockedBadgeIds,
       badgeMetrics: badgeMetrics ?? this.badgeMetrics,
+      competencyMetrics: competencyMetrics ?? this.competencyMetrics
     );
   }
 }
