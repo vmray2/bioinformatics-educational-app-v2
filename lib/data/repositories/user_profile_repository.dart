@@ -14,18 +14,16 @@ class UserProfileRepository {
 
   Future<UserProfileCollection> createProfile() async {
     final isar = await _db;
-    final List<String> competencyIdList = [
+    /*final List<String> competencyIdList = [
       "c1_role_of_bioinformatics", "c2_computational_concepts", "c3_statistical_concepts",
       "c4_bioinformatics_tools", "c5_data_retrieval", "c6_model",
       "c7_scripting", "c8_data_types", "c9_implications"
-    ];
+    ];*/
 
     final newProfile = UserProfileCollection()
       ..id = 1
       ..username = "Researcher"
-      ..currentLevel = 1
       ..userTitle = "Novice"
-      ..totalXp = 0
       ..accountCreated = DateTime.now()
       ..lastActiveSession = DateTime.now()
       ..consecutiveDays = 1

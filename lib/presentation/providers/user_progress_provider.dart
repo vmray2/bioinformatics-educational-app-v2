@@ -50,6 +50,21 @@ class UserProgressNotifier extends Notifier<UserProgress> {
       updateBadgeProgress(badgeId);
     }
   }
+  
+  void updateUserProgress({required int xp, required int currentLevel}) {
+    final currentMetrics = state.userMetrics;
+    
+    final updatedMetrics = currentMetrics.copyWith(
+      totalXp: currentMetrics.totalXp! + xp,
+      currentLevel: currentLevel
+    );
+
+    state = state.copyWith(
+      userMetrics: updatedMetrics,
+    );
+
+    _saveToLocal();
+  }
 
   void updateModuleProgress(String moduleId, {required int status}) {
     final currentMetrics = state.moduleMetrics[moduleId] ?? const ModuleMetrics();

@@ -68,6 +68,13 @@ const UserProgressCollectionSchema = CollectionSchema(
       name: r'unlockedModules',
       type: IsarType.stringList,
     ),
+    r'user': PropertySchema(
+      id: 8,
+      name: r'user',
+      type: IsarType.object,
+
+      target: r'IsarUserEntry',
+    ),
   },
 
   estimateSize: _userProgressCollectionEstimateSize,
@@ -83,6 +90,7 @@ const UserProgressCollectionSchema = CollectionSchema(
     r'IsarActivityEntry': IsarActivityEntrySchema,
     r'IsarBadgeEntry': IsarBadgeEntrySchema,
     r'IsarCompetencyEntry': IsarCompetencyEntrySchema,
+    r'IsarUserEntry': IsarUserEntrySchema,
   },
 
   getId: _userProgressCollectionGetId,
@@ -178,6 +186,13 @@ int _userProgressCollectionEstimateSize(
       bytesCount += value.length * 3;
     }
   }
+  bytesCount +=
+      3 +
+      IsarUserEntrySchema.estimateSize(
+        object.user,
+        allOffsets[IsarUserEntry]!,
+        allOffsets,
+      );
   return bytesCount;
 }
 
@@ -220,6 +235,12 @@ void _userProgressCollectionSerialize(
   writer.writeStringList(offsets[5], object.unlockedActivities);
   writer.writeStringList(offsets[6], object.unlockedBadges);
   writer.writeStringList(offsets[7], object.unlockedModules);
+  writer.writeObject<IsarUserEntry>(
+    offsets[8],
+    allOffsets,
+    IsarUserEntrySchema.serialize,
+    object.user,
+  );
 }
 
 UserProgressCollection _userProgressCollectionDeserialize(
@@ -273,6 +294,13 @@ UserProgressCollection _userProgressCollectionDeserialize(
   object.unlockedActivities = reader.readStringList(offsets[5]) ?? [];
   object.unlockedBadges = reader.readStringList(offsets[6]) ?? [];
   object.unlockedModules = reader.readStringList(offsets[7]) ?? [];
+  object.user =
+      reader.readObjectOrNull<IsarUserEntry>(
+        offsets[8],
+        IsarUserEntrySchema.deserialize,
+        allOffsets,
+      ) ??
+      IsarUserEntry();
   return object;
 }
 
@@ -334,6 +362,14 @@ P _userProgressCollectionDeserializeProp<P>(
       return (reader.readStringList(offset) ?? []) as P;
     case 7:
       return (reader.readStringList(offset) ?? []) as P;
+    case 8:
+      return (reader.readObjectOrNull<IsarUserEntry>(
+                offset,
+                IsarUserEntrySchema.deserialize,
+                allOffsets,
+              ) ??
+              IsarUserEntry())
+          as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -1785,6 +1821,17 @@ extension UserProgressCollectionQueryObject
       return query.object(q, r'modules');
     });
   }
+
+  QueryBuilder<
+    UserProgressCollection,
+    UserProgressCollection,
+    QAfterFilterCondition
+  >
+  user(FilterQuery<IsarUserEntry> q) {
+    return QueryBuilder.apply(this, (query) {
+      return query.object(q, r'user');
+    });
+  }
 }
 
 extension UserProgressCollectionQueryLinks
@@ -1924,11 +1971,266 @@ extension UserProgressCollectionQueryProperty
       return query.addPropertyName(r'unlockedModules');
     });
   }
+
+  QueryBuilder<UserProgressCollection, IsarUserEntry, QQueryOperations>
+  userProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'user');
+    });
+  }
 }
 
 // **************************************************************************
 // IsarEmbeddedGenerator
 // **************************************************************************
+
+// coverage:ignore-file
+// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+
+const IsarUserEntrySchema = Schema(
+  name: r'IsarUserEntry',
+  id: 976604775232494034,
+  properties: {
+    r'currentLevel': PropertySchema(
+      id: 0,
+      name: r'currentLevel',
+      type: IsarType.long,
+    ),
+    r'totalXp': PropertySchema(id: 1, name: r'totalXp', type: IsarType.long),
+    r'xpForCompletion': PropertySchema(
+      id: 2,
+      name: r'xpForCompletion',
+      type: IsarType.long,
+    ),
+  },
+
+  estimateSize: _isarUserEntryEstimateSize,
+  serialize: _isarUserEntrySerialize,
+  deserialize: _isarUserEntryDeserialize,
+  deserializeProp: _isarUserEntryDeserializeProp,
+);
+
+int _isarUserEntryEstimateSize(
+  IsarUserEntry object,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  var bytesCount = offsets.last;
+  return bytesCount;
+}
+
+void _isarUserEntrySerialize(
+  IsarUserEntry object,
+  IsarWriter writer,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  writer.writeLong(offsets[0], object.currentLevel);
+  writer.writeLong(offsets[1], object.totalXp);
+  writer.writeLong(offsets[2], object.xpForCompletion);
+}
+
+IsarUserEntry _isarUserEntryDeserialize(
+  Id id,
+  IsarReader reader,
+  List<int> offsets,
+  Map<Type, List<int>> allOffsets,
+) {
+  final object = IsarUserEntry();
+  object.currentLevel = reader.readLong(offsets[0]);
+  object.totalXp = reader.readLong(offsets[1]);
+  object.xpForCompletion = reader.readLong(offsets[2]);
+  return object;
+}
+
+P _isarUserEntryDeserializeProp<P>(
+  IsarReader reader,
+  int propertyId,
+  int offset,
+  Map<Type, List<int>> allOffsets,
+) {
+  switch (propertyId) {
+    case 0:
+      return (reader.readLong(offset)) as P;
+    case 1:
+      return (reader.readLong(offset)) as P;
+    case 2:
+      return (reader.readLong(offset)) as P;
+    default:
+      throw IsarError('Unknown property with id $propertyId');
+  }
+}
+
+extension IsarUserEntryQueryFilter
+    on QueryBuilder<IsarUserEntry, IsarUserEntry, QFilterCondition> {
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  currentLevelEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'currentLevel', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  currentLevelGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'currentLevel',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  currentLevelLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'currentLevel',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  currentLevelBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'currentLevel',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  totalXpEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'totalXp', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  totalXpGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'totalXp',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  totalXpLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'totalXp',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  totalXpBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'totalXp',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  xpForCompletionEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'xpForCompletion', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  xpForCompletionGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'xpForCompletion',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  xpForCompletionLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'xpForCompletion',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  xpForCompletionBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'xpForCompletion',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
+      );
+    });
+  }
+}
+
+extension IsarUserEntryQueryObject
+    on QueryBuilder<IsarUserEntry, IsarUserEntry, QFilterCondition> {}
 
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types

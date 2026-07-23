@@ -11,3 +11,14 @@ final activitiesProvider = FutureProvider<List<Activity>>((ref) async {
   
   return jsonList.map((item) => Activity.fromJson(item as Map<String, dynamic>)).toList();
 });
+
+final activityByIdProvider = Provider.family<AsyncValue<Activity>, String>((ref, id) {
+  final activitiesAsync = ref.watch(activitiesProvider);
+
+  return activitiesAsync.whenData(
+    (activities) => activities.firstWhere(
+      (m) => m.activityId == id,
+      orElse: () => throw Exception('Module ID $id not found'),
+    ),
+  );
+});

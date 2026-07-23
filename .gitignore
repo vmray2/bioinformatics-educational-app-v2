@@ -11,6 +11,9 @@
 .svn/
 .swiftpm/
 migrate_working_dir/
+libisar.dll
+libisar.dylib
+libisar.so
 
 # IntelliJ related
 *.iml

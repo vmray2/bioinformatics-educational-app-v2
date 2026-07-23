@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:binf_educational_app_redone/domain/models/badge.dart';
+import 'package:binf_educational_app_redone/domain/models/competency_badge.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

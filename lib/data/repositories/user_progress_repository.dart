@@ -34,7 +34,8 @@ class UserProgressRepository {
         "c7_scripting": CompetencyMetrics(isCompleted: false, totalXp: 0), 
         "c8_data_types": CompetencyMetrics(isCompleted: false, totalXp: 0), 
         "c9_implications": CompetencyMetrics(isCompleted: false, totalXp: 0)
-      }
+      },
+      userMetrics: UserMetrics(totalXp: 0, currentLevel: 1)
     );
 
     await _localDb.saveUserProgress(initialProgress);

@@ -1,9 +1,9 @@
-import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
-import 'package:binf_educational_app_redone/domain/models/user_progress.dart';
-import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
+//import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
+//import 'package:binf_educational_app_redone/domain/models/user_progress.dart';
+//import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/badge_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/competency_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
+//import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/profile_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/badge_card.dart';
@@ -22,8 +22,8 @@ class UserProfileScreen extends ConsumerWidget{
     final userProgress = ref.watch(userProgressProvider);
     final userProfileAsync = ref.watch(startupProfileProvider);
 
-    final modulesAsync = ref.watch(curriculumProvider);
-    final activitiesAsync = ref.watch(activitiesProvider);
+    //final modulesAsync = ref.watch(curriculumProvider);
+    //final activitiesAsync = ref.watch(activitiesProvider);
     final badgesAsync = ref.watch(badgesProvider);
     final competenciesAsync = ref.watch(competenciesProvider);
 
@@ -35,9 +35,9 @@ class UserProfileScreen extends ConsumerWidget{
           .where((metric) => metric.isCompleted)
           .length;
 
-    final completedCompetenciesCount = userProgress.competencyMetrics.values
+    /*final completedCompetenciesCount = userProgress.competencyMetrics.values
           .where((metric) => metric.isCompleted)
-          .length;
+          .length;*/
 
     final totalUnlockedBadges = userProgress.unlockedBadgeIds.length;
 
@@ -218,7 +218,7 @@ class UserProfileScreen extends ConsumerWidget{
                                     ],
                                   ),
                                   Text(
-                                    "Level ${userProfile.currentLevel}: ${userProfile.userTitle}",
+                                    "Level ${userProgress.userMetrics.currentLevel}: ${userProfile.userTitle}",
                                     textAlign: TextAlign.left,
                                     style: GoogleFonts.inter(
                                       fontSize: 16,
@@ -231,7 +231,7 @@ class UserProfileScreen extends ConsumerWidget{
                                       borderRadius: BorderRadius.circular(16)
                                     ),
                                     child: LinearProgressIndicator(
-                                      value: userProfile.totalXp / userProfile.xpForCompletion,
+                                      value: userProgress.userMetrics.totalXp! / userProgress.userMetrics.xpForCompletion!,
                                       backgroundColor: Color.fromRGBO(249, 248, 248, 1),
                                       color: appColors.tertiaryColor,
                                       minHeight: 16,

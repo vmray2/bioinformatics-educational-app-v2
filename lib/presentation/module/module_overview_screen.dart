@@ -145,101 +145,121 @@ class _ModuleOverviewScreenState extends ConsumerState<ModuleOverviewScreen> wit
                                                     mainAxisAlignment: MainAxisAlignment.center,
                                                     spacing: 8,
                                                     children: [
-                                                      Text(
-                                                        "${module.competenciesXp.values.fold<int>(0, (sum, item) => sum + (item as int))}",
-                                                        style: GoogleFonts.inter(
-                                                          fontSize: 16,
-                                                          color: appColors.textColor,
-                                                          fontWeight: FontWeight.w600
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "Total XP",
-                                                        style: GoogleFonts.inter(
-                                                          fontSize: 12,
-                                                          color: appColors.textColor,
-                                                          fontWeight: FontWeight.w600
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(8),
-                                                color: appColors.badgeCardBackgroundColor
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(16.0),
-                                                child: Center(
-                                                  child: Column(
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    spacing: 8,
-                                                    children: [
-                                                      Text(
-                                                        module.estTime,
-                                                        style: GoogleFonts.inter(
-                                                          fontSize: 16,
-                                                          color: appColors.textColor,
-                                                          fontWeight: FontWeight.w600
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "Est. Time",
-                                                        style: GoogleFonts.inter(
-                                                          fontSize: 12,
-                                                          color: appColors.textColor,
-                                                          fontWeight: FontWeight.w600
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(8),
-                                                color: appColors.badgeCardBackgroundColor
-                                              ),
-                                              child: Padding(
-                                                padding: const EdgeInsets.all(16.0),
-                                                child: Center(
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                                    spacing: 8,
-                                                    children: [
-                                                      Stack(
-                                                        alignment: Alignment.center,
-                                                        children: [
-                                                          SizedBox(
-                                                            //width: 30,
-                                                            //height: 30,
-                                                            child: CircularProgressIndicator(
-                                                              value: totalModuleStepsCompleted / module.moduleSteps.length,
-                                                              color: appColors.tertiaryColor,
-                                                              backgroundColor: Color.fromRGBO(180, 180, 180, 1),
-                                                            ),
+                                                      Flexible(
+                                                        child: Text(
+                                                          "${module.competenciesXp.values.fold<int>(0, (sum, item) => sum + (item as int))}",
+                                                          style: GoogleFonts.inter(
+                                                            fontSize: 16,
+                                                            color: appColors.textColor,
+                                                            fontWeight: FontWeight.w600
                                                           ),
-                                                          Text(
-                                                            "$totalModuleStepsCompleted/${module.moduleSteps.length}",
-                                                            style: GoogleFonts.inter(
-                                                              fontSize: 10,
-                                                              fontWeight: FontWeight.bold
-                                                            ),
-                                                          )
-                                                        ],
+                                                        ),
                                                       ),
-                                                      Text(
-                                                        "Progress",
-                                                        style: GoogleFonts.inter(
-                                                          fontSize: 12,
-                                                          color: appColors.textColor,
-                                                          fontWeight: FontWeight.w600
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Total XP",
+                                                          style: GoogleFonts.inter(
+                                                            fontSize: 12,
+                                                            color: appColors.textColor,
+                                                            fontWeight: FontWeight.w600
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(8),
+                                                color: appColors.badgeCardBackgroundColor
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(16.0),
+                                                child: Center(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    spacing: 8,
+                                                    children: [
+                                                      Flexible(
+                                                        child: Text(
+                                                          module.estTime,
+                                                          style: GoogleFonts.inter(
+                                                            fontSize: 16,
+                                                            color: appColors.textColor,
+                                                            fontWeight: FontWeight.w600
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Est. Time",
+                                                          style: GoogleFonts.inter(
+                                                            fontSize: 12,
+                                                            color: appColors.textColor,
+                                                            fontWeight: FontWeight.w600
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(8),
+                                                color: appColors.badgeCardBackgroundColor
+                                              ),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(16.0),
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    spacing: 8,
+                                                    children: [
+                                                      Flexible(
+                                                        fit: FlexFit.loose,
+                                                        flex: 2,
+                                                        child: ConstrainedBox(
+                                                          constraints: BoxConstraints(
+                                                            maxHeight: 40,
+                                                            maxWidth: 40
+                                                          ),
+                                                          child: Stack(
+                                                            alignment: Alignment.center,
+                                                            children: [
+                                                              SizedBox(
+                                                                //width: 30,
+                                                                //height: 30,
+                                                                child: CircularProgressIndicator(
+                                                                  value: totalModuleStepsCompleted / module.moduleSteps.length,
+                                                                  color: appColors.tertiaryColor,
+                                                                  backgroundColor: Color.fromRGBO(180, 180, 180, 1),
+                                                                ),
+                                                              ),
+                                                              Text(
+                                                                "$totalModuleStepsCompleted/${module.moduleSteps.length}",
+                                                                style: GoogleFonts.inter(
+                                                                  fontSize: 10,
+                                                                  fontWeight: FontWeight.bold
+                                                                ),
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Flexible(
+                                                        child: Text(
+                                                          "Progress",
+                                                          style: GoogleFonts.inter(
+                                                            fontSize: 12,
+                                                            color: appColors.textColor,
+                                                            fontWeight: FontWeight.w600
+                                                          ),
                                                         ),
                                                       ),
                                                     ],

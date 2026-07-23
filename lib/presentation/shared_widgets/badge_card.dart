@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
-import 'package:binf_educational_app_redone/domain/models/badge.dart';
+import 'package:binf_educational_app_redone/domain/models/competency_badge.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BadgeCard extends StatelessWidget {
@@ -32,13 +32,13 @@ class BadgeCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           onTap: isLocked ? null : onTap,
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(4.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                /*Expanded(
+                Flexible(
                   child: !isLocked ? Container() : Icon(Icons.lock, size: 20,)
-                ),*/
+                ),
                 Flexible(
                   flex: 3,
                   child: Center(
@@ -59,7 +59,7 @@ class BadgeCard extends StatelessWidget {
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        height: 1,
+                        height: 0.5,
                         color: !isLocked ? appColors.textColor : appColors.textColor?.withValues(alpha: 0.4)
                       ),
                     ),

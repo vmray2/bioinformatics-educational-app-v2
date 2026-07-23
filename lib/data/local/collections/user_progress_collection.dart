@@ -14,6 +14,14 @@ class UserProgressCollection {
   List<IsarActivityEntry> activities = [];
   List<IsarBadgeEntry> badges = [];
   List<IsarCompetencyEntry> competencies = [];
+  IsarUserEntry user = IsarUserEntry();
+}
+
+@Embedded()
+class IsarUserEntry {
+  int totalXp = 0;
+  int currentLevel = 1;
+  int xpForCompletion = 1000;
 }
 
 @Embedded()

@@ -1,6 +1,7 @@
 import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
 import 'package:binf_educational_app_redone/data/repositories/user_profile_repository.dart';
 import 'package:binf_educational_app_redone/presentation/welcome/welcome_screen.dart';
+import 'package:binf_educational_app_redone/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,7 +26,11 @@ void main() {
         overrides: [
           userProfileRepositoryProvider.overrideWithValue(mockRepo),
         ],
-        child: const MaterialApp(home: WelcomeScreen()),
+        child: MaterialApp(
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          home: const WelcomeScreen()
+        ),
       ),
     );
 
@@ -41,9 +46,8 @@ void main() {
     final fakeProfile = UserProfileCollection()
       ..id = 1
       ..username = "John Smith"
-      ..currentLevel = 2
       ..userTitle = "Novice"
-      ..totalXp = 120
+      ..profileImgPath = ""
       ..accountCreated = DateTime.now()
       ..lastActiveSession = DateTime.now()
       ..consecutiveDays = 2;
@@ -54,7 +58,11 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [userProfileRepositoryProvider.overrideWithValue(mockRepo)],
-        child: const MaterialApp(home: WelcomeScreen()),
+        child: MaterialApp(
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          home: const WelcomeScreen()
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -75,7 +83,11 @@ void main() {
         overrides: [
           userProfileRepositoryProvider.overrideWithValue(mockRepo),
         ],
-        child: const MaterialApp(home: WelcomeScreen()),
+        child: MaterialApp(
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          home: const WelcomeScreen()
+        ),
       ),
     );
 
@@ -91,9 +103,8 @@ void main() {
     final fakeProfile = UserProfileCollection()
       ..id = 1
       ..username = "John Smith"
-      ..currentLevel = 2
       ..userTitle = "Novice"
-      ..totalXp = 120
+      ..profileImgPath = ""
       ..accountCreated = DateTime.now()
       ..lastActiveSession = DateTime.now()
       ..consecutiveDays = 2;
@@ -104,7 +115,11 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         overrides: [userProfileRepositoryProvider.overrideWithValue(mockRepo)],
-        child: const MaterialApp(home: WelcomeScreen()),
+        child: MaterialApp(
+          theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          home: const WelcomeScreen()
+        ),
       ),
     );
     await tester.pumpAndSettle();

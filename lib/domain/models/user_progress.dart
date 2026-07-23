@@ -89,6 +89,24 @@ class CompetencyMetrics {
   }
 }
 
+class UserMetrics {
+  final int? totalXp;
+  final int? currentLevel;
+  final int? xpForCompletion = 1000;
+
+  const UserMetrics({
+    this.totalXp,
+    this.currentLevel,
+  });
+
+  UserMetrics copyWith({int? totalXp, int? currentLevel}) {
+    return UserMetrics(
+      totalXp: totalXp ?? this.totalXp,
+      currentLevel: currentLevel ?? this.currentLevel,
+    );
+  }
+}
+
 class UserProgress {
   final Set<String> unlockedModuleIds;
   final Map<String, ModuleMetrics> moduleMetrics;
@@ -103,6 +121,7 @@ class UserProgress {
 
   final Map<String, CompetencyMetrics> competencyMetrics;
 
+  final UserMetrics userMetrics;
 
   const UserProgress({
     this.unlockedModuleIds = const {'mod_1_bioinformatics_applications'},
@@ -112,7 +131,8 @@ class UserProgress {
     this.activityMetrics = const {},
     this.unlockedBadgeIds = const {},
     this.badgeMetrics = const {},
-    this.competencyMetrics = const {} 
+    this.competencyMetrics = const {}, 
+    this.userMetrics = const UserMetrics(totalXp: 0, currentLevel: 0)
     
     /*{
         "c1_role_of_bioinformatics": CompetencyMetrics(isCompleted: false, totalXp: 0), 
@@ -135,6 +155,10 @@ class UserProgress {
     );
   }
 
+  UserMetrics getUserNetrics() {
+    return userMetrics;
+  }
+
   UserProgress copyWith({
     Set<String>? unlockedModuleIds,
     Map<String, ModuleMetrics>? moduleMetrics,
@@ -144,6 +168,7 @@ class UserProgress {
     Set<String>? unlockedBadgeIds,
     Map<String, BadgeMetrics>? badgeMetrics,
     Map<String, CompetencyMetrics>? competencyMetrics,
+    UserMetrics? userMetrics,
   }) {
     return UserProgress(
       unlockedModuleIds: unlockedModuleIds ?? this.unlockedModuleIds,
@@ -153,7 +178,8 @@ class UserProgress {
       activityMetrics: activityMetrics ?? this.activityMetrics,
       unlockedBadgeIds: unlockedBadgeIds ?? this.unlockedBadgeIds,
       badgeMetrics: badgeMetrics ?? this.badgeMetrics,
-      competencyMetrics: competencyMetrics ?? this.competencyMetrics
+      competencyMetrics: competencyMetrics ?? this.competencyMetrics,
+      userMetrics: userMetrics ?? this.userMetrics,
     );
   }
 }

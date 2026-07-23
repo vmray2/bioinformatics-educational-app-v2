@@ -7,29 +7,39 @@ class UserProfileCollection {
   Id id = 1;
 
   late String username;
-  late int currentLevel;
-  late int totalXp;
-  late int xpForCompletion = 1000;
   late String profileImgPath = "";
   late String userTitle;
   late DateTime accountCreated;
   late DateTime lastActiveSession;
   late int consecutiveDays;
 
-  @ignore
-  int get userLevel {
-    double xpPercent = this.totalXp / this.xpForCompletion;
-    int level = (xpPercent * 10).floor() + 1;
+  UserProfileCollection();
 
-    return level;
+  UserProfileCollection.create({
+    this.id = 1,
+    required this.username,
+    required this.profileImgPath,
+    required this.userTitle,
+    required this.accountCreated,
+    required this.lastActiveSession,
+    required this.consecutiveDays,
+  });
+
+  UserProfileCollection copyWith({
+    String? username,
+    String? profileImgPath,
+    String? userTitle,
+    DateTime? accountCreated,
+    DateTime? lastActiveSession,
+    int? consecutiveDays
+  }) {
+    return UserProfileCollection()
+      ..id = id
+      ..username = username ?? this.username
+      ..userTitle = userTitle ?? this.userTitle
+      ..profileImgPath = profileImgPath ?? this.profileImgPath
+      ..accountCreated = accountCreated ?? this.accountCreated
+      ..lastActiveSession = lastActiveSession ?? this.lastActiveSession
+      ..consecutiveDays = consecutiveDays ?? this.consecutiveDays;
   }
-
-  @ignore
-  double get levelProgressPercentage {
-    double xpPercent = this.totalXp / this.xpForCompletion;
-    double progressPercentage = xpPercent - (this.currentLevel - 1);
-
-    return progressPercentage;
-  }
-
 }

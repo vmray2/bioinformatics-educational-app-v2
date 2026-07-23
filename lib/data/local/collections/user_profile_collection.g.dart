@@ -28,36 +28,25 @@ const UserProfileCollectionSchema = CollectionSchema(
       name: r'consecutiveDays',
       type: IsarType.long,
     ),
-    r'currentLevel': PropertySchema(
-      id: 2,
-      name: r'currentLevel',
-      type: IsarType.long,
-    ),
     r'lastActiveSession': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'lastActiveSession',
       type: IsarType.dateTime,
     ),
     r'profileImgPath': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'profileImgPath',
       type: IsarType.string,
     ),
-    r'totalXp': PropertySchema(id: 5, name: r'totalXp', type: IsarType.long),
     r'userTitle': PropertySchema(
-      id: 6,
+      id: 4,
       name: r'userTitle',
       type: IsarType.string,
     ),
     r'username': PropertySchema(
-      id: 7,
+      id: 5,
       name: r'username',
       type: IsarType.string,
-    ),
-    r'xpForCompletion': PropertySchema(
-      id: 8,
-      name: r'xpForCompletion',
-      type: IsarType.long,
     ),
   },
 
@@ -96,13 +85,10 @@ void _userProfileCollectionSerialize(
 ) {
   writer.writeDateTime(offsets[0], object.accountCreated);
   writer.writeLong(offsets[1], object.consecutiveDays);
-  writer.writeLong(offsets[2], object.currentLevel);
-  writer.writeDateTime(offsets[3], object.lastActiveSession);
-  writer.writeString(offsets[4], object.profileImgPath);
-  writer.writeLong(offsets[5], object.totalXp);
-  writer.writeString(offsets[6], object.userTitle);
-  writer.writeString(offsets[7], object.username);
-  writer.writeLong(offsets[8], object.xpForCompletion);
+  writer.writeDateTime(offsets[2], object.lastActiveSession);
+  writer.writeString(offsets[3], object.profileImgPath);
+  writer.writeString(offsets[4], object.userTitle);
+  writer.writeString(offsets[5], object.username);
 }
 
 UserProfileCollection _userProfileCollectionDeserialize(
@@ -114,14 +100,11 @@ UserProfileCollection _userProfileCollectionDeserialize(
   final object = UserProfileCollection();
   object.accountCreated = reader.readDateTime(offsets[0]);
   object.consecutiveDays = reader.readLong(offsets[1]);
-  object.currentLevel = reader.readLong(offsets[2]);
   object.id = id;
-  object.lastActiveSession = reader.readDateTime(offsets[3]);
-  object.profileImgPath = reader.readString(offsets[4]);
-  object.totalXp = reader.readLong(offsets[5]);
-  object.userTitle = reader.readString(offsets[6]);
-  object.username = reader.readString(offsets[7]);
-  object.xpForCompletion = reader.readLong(offsets[8]);
+  object.lastActiveSession = reader.readDateTime(offsets[2]);
+  object.profileImgPath = reader.readString(offsets[3]);
+  object.userTitle = reader.readString(offsets[4]);
+  object.username = reader.readString(offsets[5]);
   return object;
 }
 
@@ -137,19 +120,13 @@ P _userProfileCollectionDeserializeProp<P>(
     case 1:
       return (reader.readLong(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
-    case 3:
       return (reader.readDateTime(offset)) as P;
+    case 3:
+      return (reader.readString(offset)) as P;
     case 4:
       return (reader.readString(offset)) as P;
     case 5:
-      return (reader.readLong(offset)) as P;
-    case 6:
       return (reader.readString(offset)) as P;
-    case 7:
-      return (reader.readString(offset)) as P;
-    case 8:
-      return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -398,77 +375,6 @@ extension UserProfileCollectionQueryFilter
       return query.addFilterCondition(
         FilterCondition.between(
           property: r'consecutiveDays',
-          lower: lower,
-          includeLower: includeLower,
-          upper: upper,
-          includeUpper: includeUpper,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  currentLevelEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'currentLevel', value: value),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  currentLevelGreaterThan(int value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(
-          include: include,
-          property: r'currentLevel',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  currentLevelLessThan(int value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.lessThan(
-          include: include,
-          property: r'currentLevel',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  currentLevelBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.between(
-          property: r'currentLevel',
           lower: lower,
           includeLower: includeLower,
           upper: upper,
@@ -797,77 +703,6 @@ extension UserProfileCollectionQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(property: r'profileImgPath', value: ''),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  totalXpEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'totalXp', value: value),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  totalXpGreaterThan(int value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(
-          include: include,
-          property: r'totalXp',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  totalXpLessThan(int value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.lessThan(
-          include: include,
-          property: r'totalXp',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  totalXpBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.between(
-          property: r'totalXp',
-          lower: lower,
-          includeLower: includeLower,
-          upper: upper,
-          includeUpper: includeUpper,
-        ),
       );
     });
   }
@@ -1233,77 +1068,6 @@ extension UserProfileCollectionQueryFilter
       );
     });
   }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  xpForCompletionEqualTo(int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.equalTo(property: r'xpForCompletion', value: value),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  xpForCompletionGreaterThan(int value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.greaterThan(
-          include: include,
-          property: r'xpForCompletion',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  xpForCompletionLessThan(int value, {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.lessThan(
-          include: include,
-          property: r'xpForCompletion',
-          value: value,
-        ),
-      );
-    });
-  }
-
-  QueryBuilder<
-    UserProfileCollection,
-    UserProfileCollection,
-    QAfterFilterCondition
-  >
-  xpForCompletionBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(
-        FilterCondition.between(
-          property: r'xpForCompletion',
-          lower: lower,
-          includeLower: includeLower,
-          upper: upper,
-          includeUpper: includeUpper,
-        ),
-      );
-    });
-  }
 }
 
 extension UserProfileCollectionQueryObject
@@ -1353,20 +1117,6 @@ extension UserProfileCollectionQuerySortBy
   }
 
   QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  sortByCurrentLevel() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'currentLevel', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  sortByCurrentLevelDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'currentLevel', Sort.desc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
   sortByLastActiveSession() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'lastActiveSession', Sort.asc);
@@ -1395,20 +1145,6 @@ extension UserProfileCollectionQuerySortBy
   }
 
   QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  sortByTotalXp() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totalXp', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  sortByTotalXpDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totalXp', Sort.desc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
   sortByUserTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'userTitle', Sort.asc);
@@ -1433,20 +1169,6 @@ extension UserProfileCollectionQuerySortBy
   sortByUsernameDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'username', Sort.desc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  sortByXpForCompletion() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'xpForCompletion', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  sortByXpForCompletionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'xpForCompletion', Sort.desc);
     });
   }
 }
@@ -1478,20 +1200,6 @@ extension UserProfileCollectionQuerySortThenBy
   thenByConsecutiveDaysDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'consecutiveDays', Sort.desc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  thenByCurrentLevel() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'currentLevel', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  thenByCurrentLevelDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'currentLevel', Sort.desc);
     });
   }
 
@@ -1538,20 +1246,6 @@ extension UserProfileCollectionQuerySortThenBy
   }
 
   QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  thenByTotalXp() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totalXp', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  thenByTotalXpDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totalXp', Sort.desc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
   thenByUserTitle() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'userTitle', Sort.asc);
@@ -1578,20 +1272,6 @@ extension UserProfileCollectionQuerySortThenBy
       return query.addSortBy(r'username', Sort.desc);
     });
   }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  thenByXpForCompletion() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'xpForCompletion', Sort.asc);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QAfterSortBy>
-  thenByXpForCompletionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'xpForCompletion', Sort.desc);
-    });
-  }
 }
 
 extension UserProfileCollectionQueryWhereDistinct
@@ -1607,13 +1287,6 @@ extension UserProfileCollectionQueryWhereDistinct
   distinctByConsecutiveDays() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'consecutiveDays');
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QDistinct>
-  distinctByCurrentLevel() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'currentLevel');
     });
   }
 
@@ -1635,13 +1308,6 @@ extension UserProfileCollectionQueryWhereDistinct
   }
 
   QueryBuilder<UserProfileCollection, UserProfileCollection, QDistinct>
-  distinctByTotalXp() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'totalXp');
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QDistinct>
   distinctByUserTitle({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'userTitle', caseSensitive: caseSensitive);
@@ -1652,13 +1318,6 @@ extension UserProfileCollectionQueryWhereDistinct
   distinctByUsername({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'username', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, UserProfileCollection, QDistinct>
-  distinctByXpForCompletion() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'xpForCompletion');
     });
   }
 }
@@ -1690,13 +1349,6 @@ extension UserProfileCollectionQueryProperty
     });
   }
 
-  QueryBuilder<UserProfileCollection, int, QQueryOperations>
-  currentLevelProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'currentLevel');
-    });
-  }
-
   QueryBuilder<UserProfileCollection, DateTime, QQueryOperations>
   lastActiveSessionProperty() {
     return QueryBuilder.apply(this, (query) {
@@ -1711,12 +1363,6 @@ extension UserProfileCollectionQueryProperty
     });
   }
 
-  QueryBuilder<UserProfileCollection, int, QQueryOperations> totalXpProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'totalXp');
-    });
-  }
-
   QueryBuilder<UserProfileCollection, String, QQueryOperations>
   userTitleProperty() {
     return QueryBuilder.apply(this, (query) {
@@ -1728,13 +1374,6 @@ extension UserProfileCollectionQueryProperty
   usernameProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'username');
-    });
-  }
-
-  QueryBuilder<UserProfileCollection, int, QQueryOperations>
-  xpForCompletionProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'xpForCompletion');
     });
   }
 }

@@ -38,50 +38,67 @@ class ActivityCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    isLocked ? Icon(Icons.lock) : isCompleted! ? Icon(Icons.check, fontWeight: FontWeight.w900) : Container(),
-                    activity.difficulty == "easy" ? 
-                    Icon(
-                      Icons.circle, 
-                      color: !isLocked ? Colors.green : Colors.green.withValues(alpha: 0.4), 
-                      size: 15
-                    ) : 
-                    activity.difficulty == "medium" ? 
-                    Icon(
-                      Icons.square, 
-                      color: !isLocked ? Colors.yellow : Colors.yellow.withValues(alpha: 0.4), 
-                      size: 15,
-                    ) : 
-                    Icon(
-                      CupertinoIcons.triangle_fill, 
-                      color: !isLocked ? Colors.red : Colors.red.withValues(alpha: 0.4), 
-                      size: 15,
-                    )
-                  ],
+                Flexible(
+                  fit: FlexFit.loose,
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      maxHeight: 15
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        isLocked ? Icon(Icons.lock) : isCompleted! ? Icon(Icons.check, fontWeight: FontWeight.w900) : Container(),
+                        activity.difficulty == "easy" ? 
+                        Icon(
+                          Icons.circle, 
+                          color: !isLocked ? Colors.green : Colors.green.withValues(alpha: 0.4), 
+                          size: 15
+                        ) : 
+                        activity.difficulty == "medium" ? 
+                        Icon(
+                          Icons.square, 
+                          color: !isLocked ? Colors.yellow : Colors.yellow.withValues(alpha: 0.4), 
+                          size: 15,
+                        ) : 
+                        Icon(
+                          CupertinoIcons.triangle_fill, 
+                          color: !isLocked ? Colors.red : Colors.red.withValues(alpha: 0.4), 
+                          size: 15,
+                        )
+                      ],
+                    ),
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 6, bottom: 4),
-                  child: Center(
-                    child: Text(
-                      activity.name,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: !isLocked ? appColors.textColor : appColors.textColor?.withValues(alpha: 0.4)
+                Flexible(
+                  flex: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 6, bottom: 4),
+                    child: Center(
+                      child: Text(
+                        activity.name,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.inter(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: !isLocked ? appColors.textColor : appColors.textColor?.withValues(alpha: 0.4)
+                        ),
                       ),
                     ),
                   ),
                 ),
-                Center(
-                  child: Text(
-                    "Module ${activity.associatedModule.split("_")[1]}",
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                      color: !isLocked ? appColors.textColor : appColors.textColor?.withValues(alpha: 0.4)
+                Flexible(
+                  child: Center(
+                    child: Text(
+                      "Module ${activity.associatedModule.split("_")[1]}",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: !isLocked ? appColors.textColor : appColors.textColor?.withValues(alpha: 0.4)
+                      ),
                     ),
                   ),
                 )

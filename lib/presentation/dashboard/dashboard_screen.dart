@@ -1,5 +1,6 @@
 import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
 import 'package:binf_educational_app_redone/domain/models/module_step.dart';
+import 'package:binf_educational_app_redone/presentation/activity/activity_overview_screen.dart';
 import 'package:binf_educational_app_redone/presentation/module/module_overview_screen.dart';
 import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
@@ -103,7 +104,8 @@ class DashboardScreen extends ConsumerWidget{
                             Flexible(
                               flex: 2,
                               child: Text(
-                                "Level ${userProfile!.currentLevel}: ${userProfile!.userTitle}",
+                                "Level ${userProgress.userMetrics.currentLevel}: ${userProfile!.userTitle}",
+                                key: Key("dashboard_user_level_and_title"),
                                 textAlign: TextAlign.left,
                                 style: GoogleFonts.inter(
                                   fontSize: 16,
@@ -120,7 +122,8 @@ class DashboardScreen extends ConsumerWidget{
                                   borderRadius: BorderRadius.circular(16)
                                 ),
                                 child: LinearProgressIndicator(
-                                  value: userProfile!.totalXp / userProfile!.xpForCompletion,
+                                  key: Key("dashboard_user_xp_bar"),
+                                  value: userProgress.userMetrics.totalXp! / userProgress.userMetrics.xpForCompletion!,
                                   backgroundColor: Color.fromRGBO(249, 248, 248, 1),
                                   color: appColors.tertiaryColor,
                                   minHeight: 16,
@@ -147,6 +150,7 @@ class DashboardScreen extends ConsumerWidget{
                                       ),
                                       Text(
                                         "$totalUnlockedBadges/20",
+                                        key: Key("dashboard_num_badges_unlocked"),
                                         style: GoogleFonts.inter(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w700,
@@ -177,6 +181,7 @@ class DashboardScreen extends ConsumerWidget{
                                     final badge = badges[index];
                                     final isLocked = !userProgress.unlockedBadgeIds.contains(badge.badgeId);
                                     return BadgeCard(
+                                      key: Key("dashboard_badge_card_${badge.badgeId}"),
                                       badge: badge,
                                       isLocked: isLocked,
                                       onTap: () {
@@ -267,12 +272,13 @@ class DashboardScreen extends ConsumerWidget{
                                           }                                        
                                         }
                                       }
-                                      totalModuleStepsCompleted = 2;
+                                      //totalModuleStepsCompleted = 2;
                                       return ModuleCard(
                                         module: module,
                                         totalModuleStepsCompleted: totalModuleStepsCompleted,
                                         isLocked: isLocked,
                                         status: status,
+                                        key: Key("dashboard_module_card_${module.moduleId}"),
                                         onTap: () {
                                           Navigator.push(
                                             context,
@@ -361,11 +367,17 @@ class DashboardScreen extends ConsumerWidget{
                                       isCompleted ??= false;
                                       
                                       return ActivityCard(
+                                        key: Key("dashboard_activity_card_${activity.activityId}"),
                                         activity: activity,
                                         isCompleted: isCompleted,
                                         isLocked: isLocked,
                                         onTap: () {
-                                          
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ActivityOverviewScreen(activityId: activity.activityId)
+                                            )
+                                          );
                                         },
                                       );
                                     },
