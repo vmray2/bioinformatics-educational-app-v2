@@ -2,18 +2,21 @@ class ActivityMetrics {
   final bool isCompleted;
   final int minMistakes;
   final int timesCompleted;
+  final DateTime? lastAccessed;
 
   const ActivityMetrics({
     this.isCompleted = false,
     this.minMistakes = 0,
     this.timesCompleted = 0,
+    this.lastAccessed
   });
 
-  ActivityMetrics copyWith({bool? isCompleted, int? minMistakes, int? timesCompleted}) {
+  ActivityMetrics copyWith({bool? isCompleted, int? minMistakes, int? timesCompleted, DateTime? lastAccessed}) {
     return ActivityMetrics(
       isCompleted: isCompleted ?? this.isCompleted,
       minMistakes: minMistakes ?? this.minMistakes,
       timesCompleted: timesCompleted ?? this.timesCompleted,
+      lastAccessed: lastAccessed ?? this.lastAccessed
     );
   }
 }

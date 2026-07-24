@@ -1,6 +1,7 @@
 import 'package:binf_educational_app_redone/domain/models/module_step.dart';
 import 'package:binf_educational_app_redone/presentation/module/module_competencies_list.dart';
 import 'package:binf_educational_app_redone/presentation/module/module_roadmap_steps.dart';
+import 'package:binf_educational_app_redone/presentation/module/module_step_screen.dart';
 //import 'package:binf_educational_app_redone/presentation/providers/competency_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
 import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
@@ -400,26 +401,28 @@ class _ModuleOverviewScreenState extends ConsumerState<ModuleOverviewScreen> wit
                         Flexible(
                           flex: 5,
                           //fit: FlexFit.loose,
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                //maxHeight: 50
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ModuleStepScreen(moduleId: module.moduleId)
+                                )
+                              );
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: appColors.primaryColor,
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
                               ),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: appColors.primaryColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    userProgress.moduleMetrics[module.moduleId]?.status == 0 ? "Start Module" : "Resume Module",
-                                    style: GoogleFonts.inter(
-                                      color: appColors.textColor,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16
-                                    ),
+                              child: Center(
+                                child: Text(
+                                  userProgress.moduleMetrics[module.moduleId]?.status == 0 ? "Start Module" : "Resume Module",
+                                  style: GoogleFonts.inter(
+                                    color: appColors.textColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16
                                   ),
                                 ),
                               ),

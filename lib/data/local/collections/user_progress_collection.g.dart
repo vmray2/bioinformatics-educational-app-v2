@@ -2037,9 +2037,9 @@ IsarUserEntry _isarUserEntryDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = IsarUserEntry();
-  object.currentLevel = reader.readLong(offsets[0]);
-  object.totalXp = reader.readLong(offsets[1]);
-  object.xpForCompletion = reader.readLong(offsets[2]);
+  object.currentLevel = reader.readLongOrNull(offsets[0]);
+  object.totalXp = reader.readLongOrNull(offsets[1]);
+  object.xpForCompletion = reader.readLongOrNull(offsets[2]);
   return object;
 }
 
@@ -2051,11 +2051,11 @@ P _isarUserEntryDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -2064,7 +2064,25 @@ P _isarUserEntryDeserializeProp<P>(
 extension IsarUserEntryQueryFilter
     on QueryBuilder<IsarUserEntry, IsarUserEntry, QFilterCondition> {
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  currentLevelEqualTo(int value) {
+  currentLevelIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'currentLevel'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  currentLevelIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'currentLevel'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  currentLevelEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(property: r'currentLevel', value: value),
@@ -2073,7 +2091,7 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  currentLevelGreaterThan(int value, {bool include = false}) {
+  currentLevelGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(
@@ -2086,7 +2104,7 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  currentLevelLessThan(int value, {bool include = false}) {
+  currentLevelLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.lessThan(
@@ -2100,8 +2118,8 @@ extension IsarUserEntryQueryFilter
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
   currentLevelBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2119,7 +2137,25 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  totalXpEqualTo(int value) {
+  totalXpIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'totalXp'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  totalXpIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'totalXp'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  totalXpEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(property: r'totalXp', value: value),
@@ -2128,7 +2164,7 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  totalXpGreaterThan(int value, {bool include = false}) {
+  totalXpGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(
@@ -2141,7 +2177,7 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  totalXpLessThan(int value, {bool include = false}) {
+  totalXpLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.lessThan(
@@ -2155,8 +2191,8 @@ extension IsarUserEntryQueryFilter
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
   totalXpBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2174,7 +2210,25 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  xpForCompletionEqualTo(int value) {
+  xpForCompletionIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNull(property: r'xpForCompletion'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  xpForCompletionIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const FilterCondition.isNotNull(property: r'xpForCompletion'),
+      );
+    });
+  }
+
+  QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
+  xpForCompletionEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.equalTo(property: r'xpForCompletion', value: value),
@@ -2183,7 +2237,7 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  xpForCompletionGreaterThan(int value, {bool include = false}) {
+  xpForCompletionGreaterThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(
@@ -2196,7 +2250,7 @@ extension IsarUserEntryQueryFilter
   }
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
-  xpForCompletionLessThan(int value, {bool include = false}) {
+  xpForCompletionLessThan(int? value, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.lessThan(
@@ -2210,8 +2264,8 @@ extension IsarUserEntryQueryFilter
 
   QueryBuilder<IsarUserEntry, IsarUserEntry, QAfterFilterCondition>
   xpForCompletionBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2239,17 +2293,22 @@ const IsarModuleEntrySchema = Schema(
   name: r'IsarModuleEntry',
   id: -6668761972942237448,
   properties: {
-    r'lastAccessed': PropertySchema(
+    r'isCompleted': PropertySchema(
       id: 0,
+      name: r'isCompleted',
+      type: IsarType.bool,
+    ),
+    r'lastAccessed': PropertySchema(
+      id: 1,
       name: r'lastAccessed',
       type: IsarType.dateTime,
     ),
     r'moduleId': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'moduleId',
       type: IsarType.string,
     ),
-    r'status': PropertySchema(id: 2, name: r'status', type: IsarType.long),
+    r'status': PropertySchema(id: 3, name: r'status', type: IsarType.long),
   },
 
   estimateSize: _isarModuleEntryEstimateSize,
@@ -2279,9 +2338,10 @@ void _isarModuleEntrySerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.lastAccessed);
-  writer.writeString(offsets[1], object.moduleId);
-  writer.writeLong(offsets[2], object.status);
+  writer.writeBool(offsets[0], object.isCompleted);
+  writer.writeDateTime(offsets[1], object.lastAccessed);
+  writer.writeString(offsets[2], object.moduleId);
+  writer.writeLong(offsets[3], object.status);
 }
 
 IsarModuleEntry _isarModuleEntryDeserialize(
@@ -2291,9 +2351,10 @@ IsarModuleEntry _isarModuleEntryDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = IsarModuleEntry();
-  object.lastAccessed = reader.readDateTimeOrNull(offsets[0]);
-  object.moduleId = reader.readStringOrNull(offsets[1]);
-  object.status = reader.readLong(offsets[2]);
+  object.isCompleted = reader.readBool(offsets[0]);
+  object.lastAccessed = reader.readDateTimeOrNull(offsets[1]);
+  object.moduleId = reader.readStringOrNull(offsets[2]);
+  object.status = reader.readLong(offsets[3]);
   return object;
 }
 
@@ -2305,10 +2366,12 @@ P _isarModuleEntryDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 2:
+      return (reader.readStringOrNull(offset)) as P;
+    case 3:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2317,6 +2380,15 @@ P _isarModuleEntryDeserializeProp<P>(
 
 extension IsarModuleEntryQueryFilter
     on QueryBuilder<IsarModuleEntry, IsarModuleEntry, QFilterCondition> {
+  QueryBuilder<IsarModuleEntry, IsarModuleEntry, QAfterFilterCondition>
+  isCompletedEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'isCompleted', value: value),
+      );
+    });
+  }
+
   QueryBuilder<IsarModuleEntry, IsarModuleEntry, QAfterFilterCondition>
   lastAccessedIsNull() {
     return QueryBuilder.apply(this, (query) {
@@ -2630,6 +2702,7 @@ const IsarModuleStepEntrySchema = Schema(
       name: r'moduleStepId',
       type: IsarType.string,
     ),
+    r'status': PropertySchema(id: 3, name: r'status', type: IsarType.long),
   },
 
   estimateSize: _isarModuleStepEntryEstimateSize,
@@ -2662,6 +2735,7 @@ void _isarModuleStepEntrySerialize(
   writer.writeBool(offsets[0], object.isCompleted);
   writer.writeDateTime(offsets[1], object.lastAccessed);
   writer.writeString(offsets[2], object.moduleStepId);
+  writer.writeLong(offsets[3], object.status);
 }
 
 IsarModuleStepEntry _isarModuleStepEntryDeserialize(
@@ -2674,6 +2748,7 @@ IsarModuleStepEntry _isarModuleStepEntryDeserialize(
   object.isCompleted = reader.readBool(offsets[0]);
   object.lastAccessed = reader.readDateTimeOrNull(offsets[1]);
   object.moduleStepId = reader.readStringOrNull(offsets[2]);
+  object.status = reader.readLong(offsets[3]);
   return object;
 }
 
@@ -2690,6 +2765,8 @@ P _isarModuleStepEntryDeserializeProp<P>(
       return (reader.readDateTimeOrNull(offset)) as P;
     case 2:
       return (reader.readStringOrNull(offset)) as P;
+    case 3:
+      return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -2939,6 +3016,61 @@ extension IsarModuleStepEntryQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         FilterCondition.greaterThan(property: r'moduleStepId', value: ''),
+      );
+    });
+  }
+
+  QueryBuilder<IsarModuleStepEntry, IsarModuleStepEntry, QAfterFilterCondition>
+  statusEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.equalTo(property: r'status', value: value),
+      );
+    });
+  }
+
+  QueryBuilder<IsarModuleStepEntry, IsarModuleStepEntry, QAfterFilterCondition>
+  statusGreaterThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.greaterThan(
+          include: include,
+          property: r'status',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarModuleStepEntry, IsarModuleStepEntry, QAfterFilterCondition>
+  statusLessThan(int value, {bool include = false}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.lessThan(
+          include: include,
+          property: r'status',
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<IsarModuleStepEntry, IsarModuleStepEntry, QAfterFilterCondition>
+  statusBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        FilterCondition.between(
+          property: r'status',
+          lower: lower,
+          includeLower: includeLower,
+          upper: upper,
+          includeUpper: includeUpper,
+        ),
       );
     });
   }
