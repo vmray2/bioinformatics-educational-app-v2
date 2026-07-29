@@ -1,0 +1,68 @@
+[
+    {
+        "quizId": "mod_1_quiz",
+        "moduleId": "mod_1_bioinformatics_applications",
+        "quizQuestions": [
+            {
+                "quizQuestionId": "mod_1_quiz_question_1",
+                "quizId": "mod_1_quiz",
+                "question": "Question 1",
+                "correctAnswer": "B",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "mod_1_quiz_question_2",
+                "quizId": "mod_1_quiz",
+                "question": "Question 2",
+                "correctAnswer": "A",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "mod_1_quiz_question_3",
+                "quizId": "mod_1_quiz",
+                "question": "Question 3",
+                "correctAnswer": "C",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "mod_1_quiz_question_4",
+                "quizId": "mod_1_quiz",
+                "question": "Question 4",
+                "correctAnswer": "D",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "mod_1_quiz_question_5",
+                "quizId": "mod_1_quiz",
+                "question": "Question 5",
+                "correctAnswer": "C",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            }
+        ]
+    }
+]

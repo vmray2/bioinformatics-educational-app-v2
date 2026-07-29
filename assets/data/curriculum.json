@@ -44,6 +44,17 @@
             "estTime":"5 min",
             "description": "Brief list of different types of bioinformatics users",
             "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_1_quiz",
+            "title": "Module 1 Quiz",
+            "type": "quiz",
+            "markdownInstructions": "Quiz on Module 1",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Quiz on the applications of bioinformatics",
+            "activityConfig": null
           }
         ]
     },

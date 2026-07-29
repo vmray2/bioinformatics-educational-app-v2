@@ -1,4 +1,5 @@
 import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
+import 'package:binf_educational_app_redone/presentation/quiz/quiz_screen.dart';
 //import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -291,9 +292,22 @@ class _ModuleStepScreenState extends ConsumerState<ModuleStepScreen> with Single
                                   InkWell(
                                     onTap: () {
                                       if (stepIndex > 0) {
-                                        setState(() {
-                                          stepIndex -= 1;
-                                        });
+                                        if (module.moduleSteps[stepIndex - 1].type == "quiz") {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => QuizScreen(quizId: module.moduleSteps[stepIndex - 1].moduleStepId)
+                                            )
+                                          );
+                                        }
+                                        else if (module.moduleSteps[stepIndex - 1].type == "activity") {
+
+                                        }
+                                        else {
+                                          setState(() {
+                                            stepIndex -= 1;
+                                          });
+                                        }
                                       }
                                     },
                                     child: Container(
@@ -317,9 +331,22 @@ class _ModuleStepScreenState extends ConsumerState<ModuleStepScreen> with Single
                                   InkWell(
                                     onTap: () {
                                       if (stepIndex < module.moduleSteps.length - 1) {
-                                        setState(() {
-                                          stepIndex += 1;
-                                        });
+                                        if (module.moduleSteps[stepIndex + 1].type == "quiz") {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => QuizScreen(quizId: module.moduleSteps[stepIndex + 1].moduleStepId)
+                                            )
+                                          );
+                                        }
+                                        else if (module.moduleSteps[stepIndex + 1].type == "activity") {
+
+                                        }
+                                        else {
+                                          setState(() {
+                                            stepIndex += 1;
+                                          });
+                                        }
                                       }
                                     },
                                     child: Container(
