@@ -13,6 +13,9 @@ class AppColors extends ThemeExtension<AppColors> {
   final Color? activityCardBackgroundColor;
   final Color? badgeCardBackgroundColor;
   final Color? welcomeScreenContainerColors;
+  //color for incorrect answer
+  //color for correct answer
+  //color for radio button
 
 
 

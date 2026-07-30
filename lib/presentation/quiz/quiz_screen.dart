@@ -1,5 +1,5 @@
 import 'package:binf_educational_app_redone/presentation/providers/quiz_provider.dart';
-import 'package:binf_educational_app_redone/presentation/shared_widgets/custom_radio_button.dart';
+import 'package:binf_educational_app_redone/presentation/shared_widgets/custom_radio_group.dart';
 //import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +17,11 @@ class QuizScreen extends ConsumerStatefulWidget {
 
 class _QuizScreenState extends ConsumerState<QuizScreen> with SingleTickerProviderStateMixin{
   int questionIndex = 0;
+  dynamic answerIndex;
+  int submittedCorrectAnswer = 0; 
+  bool newQuestion = false;
+  List<dynamic> incorrectAnswers = [];
+  List<double> questionScores = [];
 
   @override
   Widget build(BuildContext context) {
@@ -207,8 +212,20 @@ class _QuizScreenState extends ConsumerState<QuizScreen> with SingleTickerProvid
                                         borderRadius: BorderRadius.circular(8)
                                       ),
                                       child: Padding(
-                                        padding: const EdgeInsets.all(12.0),
-                                        child: CustomRadioButton(answerText: "answerText")
+                                        padding: const EdgeInsets.all(16.0),
+                                        child: CustomRadioGroup(
+                                          quizQuestion: quiz.quizQuestions[questionIndex],
+                                          newQuestion: newQuestion,
+                                          incorrectAnswers: incorrectAnswers,
+                                          submittedCorrectAnswer: submittedCorrectAnswer,
+                                          onIndexChanged:(value) {
+                                            print("Answer index changed to $value");
+                                            setState(() {
+                                              answerIndex = value;
+                                              newQuestion = false;
+                                            });
+                                          } ,
+                                        )
                                       )
                                     ),
                                   )
@@ -222,7 +239,44 @@ class _QuizScreenState extends ConsumerState<QuizScreen> with SingleTickerProvid
                           //fit: FlexFit.loose,
                           child: InkWell(
                             onTap: () {
-
+                              if (answerIndex != null) {
+                                if (submittedCorrectAnswer != 2) {
+                                  if (quiz.quizQuestions[questionIndex].answers[answerIndex] == quiz.quizQuestions[questionIndex].correctAnswer) {
+                                    setState(() {
+                                      submittedCorrectAnswer = 2;
+                                    });
+                                  }
+                                  else {
+                                    setState(() {
+                                      submittedCorrectAnswer = 1;
+                                      !incorrectAnswers.contains(quiz.quizQuestions[questionIndex].answers[answerIndex]) ? incorrectAnswers.add(quiz.quizQuestions[questionIndex].answers[answerIndex]) : incorrectAnswers = incorrectAnswers;
+                                    });
+                                  }
+                                }
+                                else {
+                                  if (questionIndex + 1 < quiz.quizQuestions.length) {
+                                    double questionScore = 1 - 0.25 * incorrectAnswers.length;
+                                    setState(() {
+                                      questionIndex += 1;
+                                      answerIndex = null;
+                                      submittedCorrectAnswer = 0;
+                                      newQuestion = true;
+                                      incorrectAnswers = [];
+                                      questionScores.add(questionScore);
+                                    });
+                                  }
+                                  else {
+                                    // Navigate to Quiz Results Screen
+                                    double questionScore = 1 - 0.25 * incorrectAnswers.length;
+                                    questionScores.add(questionScore);
+                                    print("Quiz Results Screen");
+                                    double finalScore = questionScores.fold(0, (sum, element) => sum + element);
+                                    finalScore = finalScore / quiz.quizQuestions.length;
+                                    print("Question Scores $questionScores");
+                                    print("Final Score: $finalScore");
+                                  }
+                                }
+                              }
                             },
                             child: Container(
                               width: double.infinity,
@@ -232,7 +286,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> with SingleTickerProvid
                               ),
                               child: Center(
                                 child: Text(
-                                  "Submit",
+                                  submittedCorrectAnswer == 2 ? "Next" : "Submit",
                                   style: GoogleFonts.inter(
                                     color: appColors.textColor,
                                     fontWeight: FontWeight.w500,

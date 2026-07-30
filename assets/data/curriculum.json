@@ -5,7 +5,7 @@
   "modules": [
     {
         "moduleId": "mod_1_bioinformatics_applications",
-        "moduleName": "Bioinfomatics Applications",
+        "moduleName": "Bioinformatics Applications",
         "description": "Overview of what bioinformatics is and what it can be used for",
         "estTime": "30 min",
         "competenciesXp": {

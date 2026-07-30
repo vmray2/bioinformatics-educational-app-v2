@@ -7,12 +7,12 @@
                 "quizQuestionId": "mod_1_quiz_question_1",
                 "quizId": "mod_1_quiz",
                 "question": "Question 1",
-                "correctAnswer": "B",
+                "correctAnswer": "B. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                 "answers": [
-                    "A",
-                    "B",
-                    "C",
-                    "D"
+                    "A. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "B. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "C. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "D. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
                 ]
             },
             {
