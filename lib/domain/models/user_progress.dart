@@ -135,20 +135,7 @@ class UserProgress {
     this.unlockedBadgeIds = const {},
     this.badgeMetrics = const {},
     this.competencyMetrics = const {}, 
-    this.userMetrics = const UserMetrics(totalXp: 0, currentLevel: 0)
-    
-    /*{
-        "c1_role_of_bioinformatics": CompetencyMetrics(isCompleted: false, totalXp: 0), 
-        "c2_computational_concepts": CompetencyMetrics(isCompleted: false, totalXp: 0), 
-        "c3_statistical_concepts": CompetencyMetrics(isCompleted: false, totalXp: 0),
-        "c4_bioinformatics_tools": CompetencyMetrics(isCompleted: false, totalXp: 0), 
-        "c5_data_retrieval": CompetencyMetrics(isCompleted: false, totalXp: 0), 
-        "c6_model": CompetencyMetrics(isCompleted: false, totalXp: 0),
-        "c7_scripting": CompetencyMetrics(isCompleted: false, totalXp: 0), 
-        "c8_data_types": CompetencyMetrics(isCompleted: false, totalXp: 0), 
-        "c9_implications": CompetencyMetrics(isCompleted: false, totalXp: 0)
-    }*/
-    
+    this.userMetrics = const UserMetrics(totalXp: 0, currentLevel: 1)
   });
 
   CompetencyMetrics getCompetency(String competencyId) {
@@ -183,6 +170,20 @@ class UserProgress {
       badgeMetrics: badgeMetrics ?? this.badgeMetrics,
       competencyMetrics: competencyMetrics ?? this.competencyMetrics,
       userMetrics: userMetrics ?? this.userMetrics,
+    );
+  }
+
+  factory UserProgress.initial({int id = 0}) {
+    return UserProgress(
+      unlockedModuleIds: const {'mod_1_bioinformatics_applications'},
+      moduleMetrics: const {},
+      moduleStepMetrics: const {},
+      unlockedActivityIds: const {"act_module_flashcards"},
+      activityMetrics: const {},
+      unlockedBadgeIds: const {},
+      badgeMetrics: const {},
+      competencyMetrics: const {}, 
+      userMetrics: const UserMetrics(totalXp: 0, currentLevel: 1)
     );
   }
 }

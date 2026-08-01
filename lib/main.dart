@@ -1,3 +1,5 @@
+import 'package:binf_educational_app_redone/data/local/isar_service.dart';
+import 'package:binf_educational_app_redone/services/database_seeder.dart';
 import 'package:binf_educational_app_redone/theme/app_theme.dart';
 import 'package:binf_educational_app_redone/theme/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +9,11 @@ import 'package:binf_educational_app_redone/presentation/welcome/welcome_screen.
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
 
+  final isarService = IsarService();
+  final isar = await isarService.db;
+
+  await DatabaseSeeder.seedMoleculesIfEmpty(isar);
+  
   runApp(
     const ProviderScope(
       child: MainApp(),

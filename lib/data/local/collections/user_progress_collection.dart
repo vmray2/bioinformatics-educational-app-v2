@@ -74,18 +74,6 @@ class UserProgressCollection {
       convertedActivityMetrics.add(activityEntry);
     }
 
-    for (String key in domain.activityMetrics.keys) {
-      IsarActivityEntry activityEntry = IsarActivityEntry.create(
-        key, 
-        domain.activityMetrics[key]!.isCompleted, 
-        domain.activityMetrics[key]!.minMistakes, 
-        domain.activityMetrics[key]!.timesCompleted,
-        domain.activityMetrics[key]!.lastAccessed
-      );
-
-      convertedActivityMetrics.add(activityEntry);
-    }
-
     for (String key in domain.badgeMetrics.keys) {
       IsarBadgeEntry badgeEntry = IsarBadgeEntry.create(
         key, 
@@ -123,6 +111,87 @@ class UserProgressCollection {
       ..user = convertedUserMetrics;
   }
 
+  UserProgress toDomain() {
+    Map<String, ModuleMetrics> convertedModuleMetrics = {};
+    Map<String, ModuleStepMetrics> convertedModuleStepMetrics = {};
+    Map<String, ActivityMetrics> convertedActivityMetrics = {};
+    Map<String, CompetencyMetrics> convertedCompetencyMetrics = {};
+    Map<String, BadgeMetrics> convertedBadgeMetrics = {};
+    UserMetrics convertedUserMetrics = UserMetrics(
+      totalXp: user.totalXp,
+      currentLevel: user.currentLevel
+    );
+
+    for (int i = 0; i < modules.length; i++) {
+      IsarModuleEntry module = modules[i];
+
+      ModuleMetrics moduleMetrics = ModuleMetrics(
+        isCompleted: module.isCompleted,
+        lastAccessed: module.lastAccessed,
+        status: module.status
+      );
+
+      convertedModuleMetrics[module.moduleId!] = moduleMetrics;
+    }
+
+    for (int i = 0; i < moduleSteps.length; i++) {
+      IsarModuleStepEntry moduleStep = moduleSteps[i];
+
+      ModuleStepMetrics moduleStepMetrics = ModuleStepMetrics(
+        isCompleted: moduleStep.isCompleted,
+        lastAccessed: moduleStep.lastAccessed,
+        status: moduleStep.status
+      );
+
+      convertedModuleStepMetrics[moduleStep.moduleStepId!] = moduleStepMetrics;
+    }
+
+    for (int i = 0; i < activities.length; i++) {
+      IsarActivityEntry activity = activities[i];
+
+      ActivityMetrics activityMetrics = ActivityMetrics(
+        isCompleted: activity.isCompleted,
+        lastAccessed: activity.lastAccessed,
+        timesCompleted: activity.timesCompleted,
+        minMistakes: activity.minMistakes
+      );
+
+      convertedActivityMetrics[activity.activityId!] = activityMetrics;
+    }
+
+    for (int i = 0; i < badges.length; i++) {
+      IsarBadgeEntry badge = badges[i];
+
+      BadgeMetrics badgeMetrics = BadgeMetrics(
+        dateUnlocked: badge.dateUnlocked
+      );
+
+      convertedBadgeMetrics[badge.badgeId!] = badgeMetrics;
+    }
+
+    for (int i = 0; i < competencies.length; i++) {
+      IsarCompetencyEntry competency = competencies[i];
+
+      CompetencyMetrics competencyMetrics = CompetencyMetrics(
+        isCompleted: competency.isCompleted,
+        totalXp: competency.totalXp,
+      );
+
+      convertedCompetencyMetrics[competency.competencyId!] = competencyMetrics;
+    }
+
+    return UserProgress(
+      unlockedModuleIds: unlockedModules.toSet(),
+      moduleMetrics: convertedModuleMetrics,
+      moduleStepMetrics: convertedModuleStepMetrics,
+      unlockedActivityIds: unlockedActivities.toSet(),
+      activityMetrics: convertedActivityMetrics,
+      unlockedBadgeIds: unlockedBadges.toSet(),
+      badgeMetrics: convertedBadgeMetrics,
+      competencyMetrics: convertedCompetencyMetrics, 
+      userMetrics: convertedUserMetrics
+    );
+  }
 
 }
 

@@ -8,11 +8,11 @@ import 'package:binf_educational_app_redone/domain/models/user_progress.dart';
 import 'package:binf_educational_app_redone/presentation/activity/activity_overview_screen.dart';
 import 'package:binf_educational_app_redone/presentation/dashboard/dashboard_screen.dart';
 import 'package:binf_educational_app_redone/presentation/module/module_overview_screen.dart';
-import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/badge_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/profile_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
+import 'package:binf_educational_app_redone/providers/activity_provider.dart';
+import 'package:binf_educational_app_redone/providers/badge_provider.dart';
+import 'package:binf_educational_app_redone/providers/curriculum_provider.dart';
+import 'package:binf_educational_app_redone/providers/profile_provider.dart';
+import 'package:binf_educational_app_redone/providers/user_progress_provider.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/activity_card.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/badge_card.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/module_card.dart';
@@ -165,14 +165,14 @@ setUpAll(() {
         curriculumProvider.overrideWith((ref) async => mockCurriculum),
         activitiesProvider.overrideWith((ref) async => mockActivities),
         badgesProvider.overrideWith((ref) async => mockBadges),
-        
-        userProgressProvider.overrideWith(() => FakeUserProgressNotifier(mockProgress)),
+      
+        userProgressProvider.overrideWith((ref) => Stream.value(mockProgress)),
         startupProfileProvider.overrideWith((ref) async => mockProfile),
       ],
       child: MaterialApp(
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        home: DashboardScreen(userProfile: mockProfile),
+        home: DashboardScreen(),
         navigatorObservers: [mockObserver],
       ),
     );

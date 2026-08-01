@@ -1,4 +1,4 @@
-import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
+import 'package:binf_educational_app_redone/providers/curriculum_provider.dart';
 import 'package:binf_educational_app_redone/presentation/quiz/quiz_screen.dart';
 //import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';

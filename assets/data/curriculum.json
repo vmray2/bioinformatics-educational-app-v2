@@ -81,7 +81,83 @@
           "c8_data_types": 50
         },
         "moduleSteps": [
-          
+          {
+            "moduleStepId": "mod_3_step_1_gene_data",
+            "title": "Gene Data",
+            "type": "markdown",
+            "markdownInstructions": "Bioinformatics definition",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"3 min",
+            "description": "Brief explanaton of what bioinformatics is",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_2_protein_data",
+            "title": "Protein Data",
+            "type": "markdown",
+            "markdownInstructions": "List of bioinformatics uses",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of what bioinformatics can be used for",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_3_ligand_data",
+            "title": "Ligand Data",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_4_online_databases",
+            "title": "Online Databases",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_5_querying_online_databases",
+            "title": "Querying Online Databases",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "act_data_hub_query_builder",
+            "title": "Data Hub Query Builder Activity",
+            "type": "activity",
+            "markdownInstructions": "Query a database to get molecule information",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Learn how you would query an online database to find information on a molecule",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_quiz",
+            "title": "Module 3 Quiz",
+            "type": "quiz",
+            "markdownInstructions": "Quiz on Module 3",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Quiz on biological data retrieval and types",
+            "activityConfig": null
+          }
         ]
 
     },

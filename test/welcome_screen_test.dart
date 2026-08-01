@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:binf_educational_app_redone/presentation/providers/profile_provider.dart';
+import 'package:binf_educational_app_redone/providers/profile_provider.dart';
 
 class MockProfileRepository extends Mock implements UserProfileRepository {}
 

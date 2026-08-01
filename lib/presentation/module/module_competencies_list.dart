@@ -1,4 +1,4 @@
-import 'package:binf_educational_app_redone/presentation/providers/competency_provider.dart';
+import 'package:binf_educational_app_redone/providers/competency_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';

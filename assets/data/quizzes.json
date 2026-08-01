@@ -64,5 +64,113 @@
                 ]
             }
         ]
+    },
+    {
+        "quizId": "mod_3_quiz",
+        "moduleId": "mod_3_data_retrieval_and_types",
+        "quizQuestions": [
+            {
+                "quizQuestionId": "mod_3_quiz_question_1",
+                "quizId": "mod_3_quiz",
+                "question": "Question 1",
+                "correctAnswer": "B. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "answers": [
+                    "A. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "B. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "C. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "D. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                ]
+            },
+            {
+                "quizQuestionId": "mod_3_quiz_question_2",
+                "quizId": "mod_3_quiz",
+                "question": "Question 2",
+                "correctAnswer": "A",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "mod_3_quiz_question_3",
+                "quizId": "mod_3_quiz",
+                "question": "Question 3",
+                "correctAnswer": "C",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "mod_3_quiz_question_4",
+                "quizId": "mod_3_quiz",
+                "question": "Question 4",
+                "correctAnswer": "D",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "mod_3_quiz_question_5",
+                "quizId": "mod_3_quiz",
+                "question": "Question 5",
+                "correctAnswer": "C",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            }
+        ]
+    },
+    {
+        "quizId": "act_data_hub_query_builder_quiz",
+        "moduleId": "mod_3_data_retrieval_and_types",
+        "quizQuestions": [
+            {
+                "quizQuestionId": "act_data_hub_query_builder_quiz_question_1",
+                "quizId": "act_data_hub_query_builder_quiz",
+                "question": "Question 1",
+                "correctAnswer": "B. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                "answers": [
+                    "A. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "B. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "C. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                    "D. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                ]
+            },
+            {
+                "quizQuestionId": "act_data_hub_query_builder_quiz_question_2",
+                "quizId": "act_data_hub_query_builder_quiz",
+                "question": "Question 2",
+                "correctAnswer": "A",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            },
+            {
+                "quizQuestionId": "act_data_hub_query_builder_quiz_question_3",
+                "quizId": "act_data_hub_query_builder_quiz",
+                "question": "Question 3",
+                "correctAnswer": "C",
+                "answers": [
+                    "A",
+                    "B",
+                    "C",
+                    "D"
+                ]
+            }
+        ]
     }
 ]

@@ -57,7 +57,7 @@
         "difficulty": "medium",
         "estTime": "20 min",
         "associatedModule": "mod_5_statistical_concepts_and_bioinformatics",
-        "associatedCompetencies": ["c3_statistical_concepts"]
+        "associatedCompetencies": ["c1_role_of_bioinformatics", "c3_statistical_concepts"]
     },
     {
         "activityId": "act_python_scripting",

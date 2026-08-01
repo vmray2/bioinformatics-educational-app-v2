@@ -1,6 +1,6 @@
 import 'package:binf_educational_app_redone/data/repositories/user_progress_repository.dart';
 import 'package:binf_educational_app_redone/domain/models/user_progress.dart';
-import 'package:binf_educational_app_redone/presentation/providers/repository_provider.dart';
+import 'package:binf_educational_app_redone/providers/isar_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class UserProgressNotifier extends Notifier<UserProgress> {
@@ -151,6 +151,12 @@ class UserProgressNotifier extends Notifier<UserProgress> {
   }
 }
 
-final userProgressProvider = NotifierProvider<UserProgressNotifier, UserProgress>(
-  UserProgressNotifier.new,
-);
+final userProgressRepositoryProvider = Provider<UserProgressRepository>((ref) {
+  final isarService = ref.watch(isarServiceProvider);
+  return UserProgressRepository(localDb: isarService);
+});
+
+final userProgressProvider = StreamProvider<UserProgress>((ref) {
+  final repository = ref.watch(userProgressRepositoryProvider);
+  return repository.watchProgress();
+});

@@ -1,12 +1,6 @@
-//import 'package:binf_educational_app_redone/domain/models/module_step.dart';
 import 'package:binf_educational_app_redone/presentation/activity/activity_competencies_list.dart';
 import 'package:binf_educational_app_redone/presentation/activity/activity_roadmap_steps.dart';
-//import 'package:binf_educational_app_redone/presentation/module/module_competencies_list.dart';
-//import 'package:binf_educational_app_redone/presentation/module/module_roadmap_steps.dart';
-import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
-//import 'package:binf_educational_app_redone/presentation/providers/competency_provider.dart';
-//import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
-//import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
+import 'package:binf_educational_app_redone/providers/activity_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

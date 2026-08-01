@@ -2,13 +2,12 @@ import 'dart:io';
 
 import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
 import 'package:binf_educational_app_redone/data/local/collections/user_progress_collection.dart';
-import 'package:binf_educational_app_redone/data/local/isar_service.dart';
-import 'package:binf_educational_app_redone/data/repositories/user_progress_repository.dart';
 import 'package:binf_educational_app_redone/presentation/dashboard/dashboard_screen.dart';
-import 'package:binf_educational_app_redone/presentation/providers/activity_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/badge_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/curriculum_provider.dart';
-import 'package:binf_educational_app_redone/presentation/providers/repository_provider.dart';
+import 'package:binf_educational_app_redone/providers/activity_provider.dart';
+import 'package:binf_educational_app_redone/providers/badge_provider.dart';
+import 'package:binf_educational_app_redone/providers/curriculum_provider.dart';
+import 'package:binf_educational_app_redone/providers/profile_provider.dart';
+import 'package:binf_educational_app_redone/providers/user_progress_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,18 +56,14 @@ void main() {
           curriculumProvider.overrideWith((ref) async => mockCurriculum),
           activitiesProvider.overrideWith((ref) async => mockActivities),
           badgesProvider.overrideWith((ref) async => mockBadges),
-          /*userProfileRepositoryProvider.overrideWithValue(
-            UserProfileRepository(Future.value(tempIsar))
-          ),*/
-          userProgressRepositoryProvider.overrideWithValue(
-            UserProgressRepository(localDb: IsarService())
-          ),
-          //isarServiceProvider.overrideWithValue(IsarService())
+
+          userProgressProvider.overrideWith((ref) => Stream.value(mockProgress)),
+          startupProfileProvider.overrideWith((ref) async => mockProfile),
         ],
         child: MaterialApp(
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          home: DashboardScreen(userProfile: mockProfile),
+          home: DashboardScreen(),
           //navigatorObservers: [mockObserver],
         ),
       ),

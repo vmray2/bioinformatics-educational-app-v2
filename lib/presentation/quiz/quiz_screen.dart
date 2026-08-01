@@ -1,4 +1,4 @@
-import 'package:binf_educational_app_redone/presentation/providers/quiz_provider.dart';
+import 'package:binf_educational_app_redone/providers/quiz_provider.dart';
 import 'package:binf_educational_app_redone/presentation/shared_widgets/custom_radio_group.dart';
 //import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
