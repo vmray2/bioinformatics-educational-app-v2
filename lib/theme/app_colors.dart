@@ -16,6 +16,8 @@ class AppColors extends ThemeExtension<AppColors> {
   //color for incorrect answer
   //color for correct answer
   //color for radio button
+  //color for activity objective bottom border
+  //color for field textbox/dropdown color
 
 
 

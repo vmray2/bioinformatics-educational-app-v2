@@ -8,9 +8,10 @@ class DatabaseSeeder {
   static Future<void> seedMoleculesIfEmpty(Isar isar) async {
     final count = await isar.moleculeCollections.count();
 
-    await isar.writeTxn(() async {
+    //Only use this if there are new changes to the molecule data
+    /* await isar.writeTxn(() async {
       await isar.clear();
-    });
+    }); */
     
     // Seed if the database collection is empty
     if (count == 0) {

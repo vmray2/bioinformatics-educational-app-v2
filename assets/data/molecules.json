@@ -12,8 +12,8 @@
     "strand": "+",
     "organism": "Homo sapiens",
     "exonCount": 0,
-    "cytogeneticBand": "",
-    "fullName": ""
+    "cytogeneticBand": "C",
+    "fullName": "tumor antigen p53"
   },
   {
     "id": "PROT_1TUP",
@@ -28,7 +28,7 @@
     "primaryFunction": "Transcription factor / DNA binding",
     "atomCount": 0,
     "organism": "Homo sapiens",
-    "structureName": "",
+    "structureName": "Tumor Suppressor p53 (Core Domain)",
     "pathTo3DStructure": null,
     "pathToFasta": null
   },

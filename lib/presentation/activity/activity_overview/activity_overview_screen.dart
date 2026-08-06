@@ -1,5 +1,7 @@
-import 'package:binf_educational_app_redone/presentation/activity/activity_competencies_list.dart';
-import 'package:binf_educational_app_redone/presentation/activity/activity_roadmap_steps.dart';
+import 'package:binf_educational_app_redone/domain/models/activity_config.dart';
+import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_competencies_list.dart';
+import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_roadmap_steps.dart';
+import 'package:binf_educational_app_redone/presentation/activity/data_hub_query_builder/query_builder_screen.dart';
 import 'package:binf_educational_app_redone/providers/activity_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +10,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ActivityOverviewScreen extends ConsumerStatefulWidget {
   final String activityId;
+  final ActivityConfig? config;
   
-  const ActivityOverviewScreen({super.key, required this.activityId});
+  const ActivityOverviewScreen({super.key, required this.activityId, this.config});
   
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ActivityOverviewScreenState();
@@ -330,26 +333,44 @@ class _ActivityOverviewScreenState extends ConsumerState<ActivityOverviewScreen>
                         Flexible(
                           flex: 5,
                           //fit: FlexFit.loose,
-                          child: Padding(
-                            padding: const EdgeInsets.all(0.0),
-                            child: ConstrainedBox(
-                              constraints: const BoxConstraints(
-                                //maxHeight: 50
+                          child: InkWell(
+                            onTap: () {
+                              ActivityConfig finalConfig;
+
+                              if (widget.config != null) {
+                                finalConfig = widget.config!;
+                              }
+                              else {
+                                // Create or pull an activity configuration
+                                finalConfig = ActivityConfig(
+                                  activityId: widget.activityId, 
+                                  objectives: ["Objective 1", "Objective 2", "Objective 3"],
+                                  correctMoleculeId: "GENE_TP53"
+                                );
+                              }
+
+                              if (widget.activityId == "act_data_hub_query_builder") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => QueryBuilderScreen(config: finalConfig, activityName: activity.name,)
+                                  )
+                                );
+                              }
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: appColors.primaryColor,
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
                               ),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: appColors.primaryColor,
-                                  borderRadius: BorderRadius.all(Radius.circular(8)),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "Start Activity",
-                                    style: GoogleFonts.inter(
-                                      color: appColors.textColor,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16
-                                    ),
+                              child: Center(
+                                child: Text(
+                                  "Start Activity",
+                                  style: GoogleFonts.inter(
+                                    color: appColors.textColor,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16
                                   ),
                                 ),
                               ),

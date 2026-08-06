@@ -1,3 +1,5 @@
+import 'package:binf_educational_app_redone/domain/models/activity_config.dart';
+import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_overview_screen.dart';
 import 'package:binf_educational_app_redone/providers/curriculum_provider.dart';
 import 'package:binf_educational_app_redone/presentation/quiz/quiz_screen.dart';
 //import 'package:binf_educational_app_redone/presentation/providers/user_progress_provider.dart';
@@ -340,7 +342,13 @@ class _ModuleStepScreenState extends ConsumerState<ModuleStepScreen> with Single
                                           );
                                         }
                                         else if (module.moduleSteps[stepIndex + 1].type == "activity") {
-
+                                          ActivityConfig config = module.moduleSteps[stepIndex + 1].activityConfig!;
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => ActivityOverviewScreen(activityId: config.activityId, config: config)
+                                            )
+                                          );
                                         }
                                         else {
                                           setState(() {

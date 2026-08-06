@@ -1,6 +1,7 @@
 import 'package:binf_educational_app_redone/data/local/collections/molecule_collection.dart';
 import 'package:binf_educational_app_redone/data/local/collections/user_profile_collection.dart';
 import 'package:binf_educational_app_redone/data/local/collections/user_progress_collection.dart';
+import 'package:binf_educational_app_redone/services/database_seeder.dart';
 import 'package:isar_community/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -24,7 +25,7 @@ class IsarService {
 
   Future<Isar> _openDB() async {
     final dir = await getApplicationDocumentsDirectory();
-    return await Isar.open(
+    final isar =  await Isar.open(
       [
         UserProfileCollectionSchema,
         UserProgressCollectionSchema,
@@ -33,6 +34,10 @@ class IsarService {
       directory: dir.path,
       inspector: false
     );
+
+    await DatabaseSeeder.seedMoleculesIfEmpty(isar);
+
+    return isar;
   }
 
   void resetForTesting() {

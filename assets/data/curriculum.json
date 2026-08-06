@@ -145,7 +145,11 @@
             "hint": "Hint Text",
             "estTime":"5 min",
             "description": "Learn how you would query an online database to find information on a molecule",
-            "activityConfig": null
+            "activityConfig": {
+              "activityId": "act_data_hub_query_builder",
+              "objectives": ["Objective 1", "Objective 2", "Objective 3"],
+              "correctMoleculeId": "GENE_TP53"
+            }
           },
           {
             "moduleStepId": "mod_3_quiz",

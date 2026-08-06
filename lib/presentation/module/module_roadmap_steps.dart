@@ -32,7 +32,7 @@ class _ModuleRoadmapStepsState extends ConsumerState<ModuleRoadmapSteps> {
           type: StepperType.vertical,
           currentStep: _currentStep,
           onStepContinue: () {
-            if (_currentStep < 2) {
+            if (_currentStep < widget.moduleSteps.length - 1) {
               setState(() {
                 _currentStep += 1;
               });

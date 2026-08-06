@@ -1,8 +1,11 @@
 import 'molecule.dart';
 
+enum LogicalOperator { and, or }
+
 class MoleculeQueryFilter {
   final MoleculeType? type;
   final String? searchQuery;
+  final LogicalOperator? searchOperator; // AND vs OR between search terms
 
   // Gene Filters
   final String? chromosome;
@@ -32,7 +35,8 @@ class MoleculeQueryFilter {
     this.pubChemId, 
     this.sortByField = 'name', 
     this.sortAscending = true, 
-    this.aminoAcidLength
+    this.aminoAcidLength, 
+    this.searchOperator
   });
 
   bool get hasFilters =>
@@ -48,6 +52,7 @@ class MoleculeQueryFilter {
 MoleculeQueryFilter copyWith({
     String? searchQuery,
     MoleculeType? type,
+    LogicalOperator? searchOperator,
     String? chromosome,
     String? pdbId,
     String? chemicalFormula,
@@ -60,6 +65,7 @@ MoleculeQueryFilter copyWith({
     return MoleculeQueryFilter(
       searchQuery: searchQuery ?? this.searchQuery,
       type: type ?? this.type,
+      searchOperator: searchOperator ?? this.searchOperator,
       chromosome: chromosome ?? this.chromosome,
       pdbId: pdbId ?? this.pdbId,
       organism: organism ?? this.organism,

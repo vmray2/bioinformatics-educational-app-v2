@@ -1,7 +1,7 @@
 import 'package:binf_educational_app_redone/data/local/collections/molecule_collection.dart';
 import 'package:binf_educational_app_redone/data/local/isar_service.dart';
 import 'package:binf_educational_app_redone/domain/models/molecule.dart';
-import 'package:binf_educational_app_redone/domain/models/molecule_query_filter.dart';
+import 'package:binf_educational_app_redone/domain/models/query_rule.dart';
 import 'package:isar_community/isar.dart';
 
 class MoleculeRepository {
@@ -13,57 +13,113 @@ class MoleculeRepository {
 
   Future<Isar> get _db async => await _localDb.db;
 
-  Stream<List<MoleculeCollection>> watchQuery(MoleculeQueryFilter filter) async* {
+  Stream<List<MoleculeCollection>> watchQuery(CompositeQueryFilter filter) async* {
     final isar = await _db;
 
+    if (filter.rules.isEmpty) {
+      yield* isar.moleculeCollections.where().watch(fireImmediately: true);
+      return;
+    }
+
+    // Initial base condition
     QueryBuilder<MoleculeCollection, MoleculeCollection, QAfterFilterCondition> query =
         isar.moleculeCollections.filter().idGreaterThan(-1);
 
-    // Molecule Type Filter
-    if (filter.type != null) {
-      query = query.typeEqualTo(filter.type!);
+    // Loop through rules
+    for (int i = 0; i < filter.rules.length; i++) {
+      final rule = filter.rules[i];
+      final isOr = (i > 0) && (filter.rules[i - 1].connector == LogicalConnector.or);
+
+      // Call .or() on query if needed
+      final QueryBuilder<MoleculeCollection, MoleculeCollection, QFilterCondition> builder =
+          isOr ? query.or() : query;
+
+      // Apply the field condition
+      query = _applyRule(builder, rule);
     }
 
-    // Search Text Query
-    final searchTerm = filter.searchQuery?.trim() ?? '';
-    if (searchTerm.isNotEmpty) {
-      query = query.group((q) => q
-          .nameContains(searchTerm, caseSensitive: false)
-          .or()
-          .descriptionContains(searchTerm, caseSensitive: false));
-    }
-
-    // Field Filters
-    if (filter.chromosome != null && filter.chromosome!.isNotEmpty) {
-      query = query.chromosomeEqualTo(filter.chromosome!, caseSensitive: false);
-    }
-
-    if (filter.pdbId != null && filter.pdbId!.isNotEmpty) {
-      query = query.pdbIdEqualTo(filter.pdbId!, caseSensitive: false);
-    }
-
-    if (filter.organism != null && filter.organism!.isNotEmpty) {
-      query = query.organismEqualTo(filter.organism!, caseSensitive: false);
-    }
-
-    if (filter.pubChemId != null && filter.pubChemId!.isNotEmpty) {
-      query = query.pubChemIdEqualTo(filter.pubChemId!, caseSensitive: false);
-    }
-
-    if (filter.aminoAcidLength != null) {
-      query = query.aminoAcidLengthEqualTo(filter.aminoAcidLength!);
-    }
-
-    if (filter.sortByField == 'name') {
-      final sortedQuery = filter.sortAscending!
-          ? query.sortByName()
-          : query.sortByNameDesc();
-      yield* sortedQuery.build().watch(fireImmediately: true);
-    } else {
-      yield* query.build().watch(fireImmediately: true);
-    }
+    yield* query.build().watch(fireImmediately: true);
   }
 
+  QueryBuilder<MoleculeCollection, MoleculeCollection, QAfterFilterCondition> _applyRule(
+    QueryBuilder<MoleculeCollection, MoleculeCollection, QFilterCondition> builder,
+    QueryRule rule,
+  ) {
+    switch (rule.field) {
+      /* case FilterField.name:
+        return rule.operator == FilterOperator.contains
+            ? builder.nameContains(rule.value as String, caseSensitive: false)
+            : builder.nameEqualTo(rule.value as String, caseSensitive: false); */
+
+      case FilterField.name:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().nameEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.nameEqualTo(rule.value as String, caseSensitive: false);
+
+      case FilterField.type:
+        return builder.typeEqualTo(rule.value as MoleculeType);
+
+      case FilterField.chromosome:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().chromosomeEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.chromosomeEqualTo(rule.value as String, caseSensitive: false);
+
+      case FilterField.pubChemId:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().pubChemIdEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.pubChemIdEqualTo(rule.value as String, caseSensitive: false);
+
+      case FilterField.chemicalFormula:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().chemicalFormulaEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.chemicalFormulaEqualTo(rule.value as String, caseSensitive: false);
+
+      case FilterField.organism:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().organismEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.organismEqualTo(rule.value as String, caseSensitive: false);  
+
+      case FilterField.fullName:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().fullNameEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.fullNameEqualTo(rule.value as String, caseSensitive: false); 
+
+      case FilterField.startPosition:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().startPositionEqualTo(rule.value as int);
+        }
+        return builder.startPositionEqualTo(rule.value as int); 
+
+      case FilterField.endPosition:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().endPositionEqualTo(rule.value as int);
+        }
+        return builder.endPositionEqualTo(rule.value as int); 
+
+      case FilterField.pdbId:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().pdbIdEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.pdbIdEqualTo(rule.value as String, caseSensitive: false); 
+
+      case FilterField.structureName:
+        if (rule.operator == FilterOperator.notEquals) {
+          return builder.not().structureNameEqualTo(rule.value as String, caseSensitive: false);
+        }
+        return builder.structureNameEqualTo(rule.value as String, caseSensitive: false); 
+        
+      case FilterField.lipinski:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+    }
+  }
+  
   List<String> getAvailableFilterFields(MoleculeType? type) {
     switch (type) {
       case MoleculeType.gene:

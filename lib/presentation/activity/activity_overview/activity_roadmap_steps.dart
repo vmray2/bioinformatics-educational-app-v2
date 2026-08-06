@@ -31,7 +31,7 @@ class _ActivityRoadmapStepsState extends ConsumerState<ActivityRoadmapSteps> {
           type: StepperType.vertical,
           currentStep: _currentStep,
           onStepContinue: () {
-            if (_currentStep < 2) {
+            if (_currentStep < widget.instructions.length - 1) {
               setState(() {
                 _currentStep += 1;
               });

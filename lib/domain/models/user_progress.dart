@@ -135,7 +135,7 @@ class UserProgress {
     this.unlockedBadgeIds = const {},
     this.badgeMetrics = const {},
     this.competencyMetrics = const {}, 
-    this.userMetrics = const UserMetrics(totalXp: 0, currentLevel: 1)
+    this.userMetrics = const UserMetrics(totalXp: 0, currentLevel: 0)
   });
 
   CompetencyMetrics getCompetency(String competencyId) {
@@ -175,10 +175,10 @@ class UserProgress {
 
   factory UserProgress.initial({int id = 0}) {
     return UserProgress(
-      unlockedModuleIds: const {'mod_1_bioinformatics_applications'},
+      unlockedModuleIds: const {'mod_1_bioinformatics_applications', 'mod_3_data_retrieval_and_types'},
       moduleMetrics: const {},
       moduleStepMetrics: const {},
-      unlockedActivityIds: const {"act_module_flashcards"},
+      unlockedActivityIds: const {"act_module_flashcards", "act_data_hub_query_builder"},
       activityMetrics: const {},
       unlockedBadgeIds: const {},
       badgeMetrics: const {},

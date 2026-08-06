@@ -5,7 +5,7 @@ import 'package:binf_educational_app_redone/domain/models/module.dart';
 import 'package:binf_educational_app_redone/domain/models/competency_badge.dart';
 import 'package:binf_educational_app_redone/domain/models/module_step.dart';
 import 'package:binf_educational_app_redone/domain/models/user_progress.dart';
-import 'package:binf_educational_app_redone/presentation/activity/activity_overview_screen.dart';
+import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_overview_screen.dart';
 import 'package:binf_educational_app_redone/presentation/dashboard/dashboard_screen.dart';
 import 'package:binf_educational_app_redone/presentation/module/module_overview_screen.dart';
 import 'package:binf_educational_app_redone/providers/activity_provider.dart';
