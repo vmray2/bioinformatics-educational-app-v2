@@ -18,6 +18,8 @@ class AppColors extends ThemeExtension<AppColors> {
   //color for radio button
   //color for activity objective bottom border
   //color for field textbox/dropdown color
+  //color for sequence alignment coordinate box
+  //color for sequence alignment text field outline
 
 
 

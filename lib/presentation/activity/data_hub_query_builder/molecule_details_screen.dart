@@ -11,7 +11,7 @@ class MoleculeDetailsScreen extends ConsumerWidget {
   final ActivityConfig config;
   final String activityName;
   
-  MoleculeDetailsScreen({super.key, required this.moleculeId, required this.config, required this.activityName});
+  const MoleculeDetailsScreen({super.key, required this.moleculeId, required this.config, required this.activityName});
   
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -85,7 +85,7 @@ class MoleculeDetailsScreen extends ConsumerWidget {
                           Flexible(
                             flex: 6,
                             child: Text(
-                              config.objectives[2],
+                              activityName == "Docking Best Fit" ? config.objectives[0] : config.objectives[2],
                               style: GoogleFonts.inter(
                                 fontSize: 12,
                                 color: appColors.textColor
@@ -118,7 +118,9 @@ class MoleculeDetailsScreen extends ConsumerWidget {
                             flex: 5,
                             child: InkWell(
                               onTap: () {
-
+                                if (activityName == "Docking Best Fit") {
+                                  Navigator.of(context).pop();
+                                }
                               },
                               child: Container(
                                 width: double.infinity,
@@ -128,7 +130,7 @@ class MoleculeDetailsScreen extends ConsumerWidget {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "Take Quiz",
+                                    activityName == "Docking Best Fit" ? "Back" : "Take Quiz",
                                     style: GoogleFonts.inter(
                                       color: appColors.textColor,
                                       fontWeight: FontWeight.w500,

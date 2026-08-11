@@ -89,7 +89,7 @@ class ProteinMolecule extends Molecule {
     this.pathTo3DStructure,
     this.pathToFasta, 
     required this.primaryFunction, 
-    required this.pdbId
+    required this.pdbId,
   }) : super(type: MoleculeType.protein);
 
   factory ProteinMolecule.fromJson(Map<String, dynamic> json) {
@@ -120,6 +120,7 @@ class LigandMolecule extends Molecule {
   final int? hydrogenBondDonors;
   final double? logP;
   final int? hydrogenBondAcceptors;
+  final int? hydrophobicFeatures;
   String? pathTo2DStructure;
   String? pathTo3DStructure;
   String? pathToSDF;
@@ -141,7 +142,7 @@ class LigandMolecule extends Molecule {
     required this.hydrogenBondAcceptors,
     this.pathTo2DStructure,
     this.pathTo3DStructure,
-    this.pathToSDF
+    this.pathToSDF, this.hydrophobicFeatures
   }) : super(type: MoleculeType.ligand);
 
   factory LigandMolecule.fromJson(Map<String, dynamic> json) {
@@ -157,6 +158,7 @@ class LigandMolecule extends Molecule {
       hydrogenBondDonors: json["hydrogenBondDonors"] as int, 
       logP: json["logP"] as double, 
       hydrogenBondAcceptors: json["hydrogenBondAcceptors"] as int,
+      hydrophobicFeatures: json["hydrophobicFeatures"] as int,
       pubChemId: json["pubChemId"] as String?,
       pathTo2DStructure: json["pathTo2DStructure"] as String? ?? "",
       pathTo3DStructure: json["pathTo3DStructure"] as String? ?? "",

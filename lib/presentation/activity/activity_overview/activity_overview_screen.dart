@@ -1,7 +1,11 @@
 import 'package:binf_educational_app_redone/domain/models/activity_config.dart';
+import 'package:binf_educational_app_redone/domain/models/binding_ligand.dart';
+import 'package:binf_educational_app_redone/domain/models/receptor_pocket.dart';
 import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_competencies_list.dart';
 import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_roadmap_steps.dart';
 import 'package:binf_educational_app_redone/presentation/activity/data_hub_query_builder/query_builder_screen.dart';
+import 'package:binf_educational_app_redone/presentation/activity/molecular_docking_best_fit/docking_best_fit_screen.dart';
+import 'package:binf_educational_app_redone/presentation/activity/sequence_alignment/sequence_alignment_matrix_fill_screen.dart';
 import 'package:binf_educational_app_redone/providers/activity_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -335,18 +339,94 @@ class _ActivityOverviewScreenState extends ConsumerState<ActivityOverviewScreen>
                           //fit: FlexFit.loose,
                           child: InkWell(
                             onTap: () {
-                              ActivityConfig finalConfig;
+                              ActivityConfig finalConfig = ActivityConfig(activityId: widget.activityId, objectives: []);
 
                               if (widget.config != null) {
                                 finalConfig = widget.config!;
                               }
                               else {
                                 // Create or pull an activity configuration
-                                finalConfig = ActivityConfig(
-                                  activityId: widget.activityId, 
-                                  objectives: ["Objective 1", "Objective 2", "Objective 3"],
-                                  correctMoleculeId: "GENE_TP53"
-                                );
+                                if (widget.activityId == "act_data_hub_query_builder") {
+                                  finalConfig = ActivityConfig(
+                                    activityId: widget.activityId, 
+                                    objectives: ["Objective 1", "Objective 2", "Objective 3"],
+                                    correctMoleculeId: "GENE_TP53"
+                                  );
+                                }
+                                else if (widget.activityId == "act_sequence_alignment") {
+                                  finalConfig = ActivityConfig(
+                                    activityId: widget.activityId, 
+                                    objectives: ["Objective 1", "Objective 2"],
+                                    leftSequence: "AGGA",
+                                    topSequence: "ACGA",
+                                    scoringSystem: {
+                                      "match": 1,
+                                      "mismatch": -1,
+                                      "indel": -2
+                                    },
+                                    matrixAnswers: [
+                                      [0, -2, -4, -6, -8],
+                                      [-2, 1, -1, -3, -5],
+                                      [-4, -1, 0, 0, -2],
+                                      [-6, -3, -2, 1, -1],
+                                      [-8, -5, -4, -1, 2]
+                                    ],
+                                    matrixTracebackAnswers: [
+                                      ["-", "-", "-", "-", "-"],
+                                      ["-", "D", "L", "L", "L"],
+                                      ["-", "T", "D", "D", "L"],
+                                      ["-", "T", "DT", "D", "DL"],
+                                      ["-", "DT", "DT", "T", "D"]
+                                    ],
+                                    correctAlignmentScore: 2
+                                  );
+                                }
+                                else if (widget.activityId == "act_docking_best_fit") {
+                                  finalConfig = ActivityConfig(
+                                    activityId: widget.activityId, 
+                                    objectives: ["Press the binding pocket to view bniding requirements and then drag-and-drop the best fitting ligand", "Objective 2"],
+                                    receptorPocket: ReceptorPocket(
+                                      id: "mdm2_1rv1",
+                                      moleculeId: "PROT_MDM2",
+                                      name: "MDM2 Binding Pocket",
+                                      minMolecularWeight: 400,
+                                      maxMolecularWeight: 650,
+                                      preferredEnvironment: "non-polar",
+                                      minHydrophobicFeatures: 2,
+                                      requiredHydrogenBondAcceptorRange: [1, 5],
+                                      requiredHydrogenBondDonorRange: [0, 2]
+                                    ),
+                                    candidateLigands: [
+                                      BindingLigand(
+                                        id: "aspirin_binding_candidate",
+                                        ligandMoleculeId: "LIG_ASPIRIN",
+                                        receptorPocketId: "mdm2_1rv1",
+                                        name: "Aspirin",
+                                        isKnownBinder: false,
+                                        pocketMatchScore: 60,
+                                        feedback: "Too small and polar (180 Da vs 400-650 Da pocket requirement and XLogP3 1.2 <= 2.0)."
+                                      ),
+                                      BindingLigand(
+                                        id: "nutlin_3a_binding_candidate",
+                                        ligandMoleculeId: "LIG_NUTLIN_3A",
+                                        receptorPocketId: "mdm2_1rv1",
+                                        name: "Nutlin_3a",
+                                        isKnownBinder: true,
+                                        pocketMatchScore: 100,
+                                        feedback: "Perfect fit! Molecular weight is within range and high XLogP3 matches the non-polar MDM2 pocket."
+                                      ),
+                                      BindingLigand(
+                                        id: "caffeine_binding_candidate",
+                                        ligandMoleculeId: "LIG_CAFFEINE",
+                                        receptorPocketId: "mdm2_1rv1",
+                                        name: "Caffeine",
+                                        isKnownBinder: false,
+                                        pocketMatchScore: 60,
+                                        feedback: "Too small and polar (194 Da vs 400-650 Da pocket requirement and XLogP3 -0.1 <= 2.0)."
+                                      )
+                                    ]
+                                  );
+                                }
                               }
 
                               if (widget.activityId == "act_data_hub_query_builder") {
@@ -354,6 +434,22 @@ class _ActivityOverviewScreenState extends ConsumerState<ActivityOverviewScreen>
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => QueryBuilderScreen(config: finalConfig, activityName: activity.name,)
+                                  )
+                                );
+                              }
+                              else if (widget.activityId == "act_sequence_alignment") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => SequenceAlignmentMatrixFillScreen(config: finalConfig, activityName: activity.name,)
+                                  )
+                                );
+                              }
+                              else if (widget.activityId == "act_docking_best_fit") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DockingBestFitScreen(config: finalConfig, activityName: activity.name,)
                                   )
                                 );
                               }

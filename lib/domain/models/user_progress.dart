@@ -175,10 +175,10 @@ class UserProgress {
 
   factory UserProgress.initial({int id = 0}) {
     return UserProgress(
-      unlockedModuleIds: const {'mod_1_bioinformatics_applications', 'mod_3_data_retrieval_and_types'},
+      unlockedModuleIds: const {'mod_1_bioinformatics_applications', 'mod_3_data_retrieval_and_types', "mod_4_tools_and_algorithms"},
       moduleMetrics: const {},
       moduleStepMetrics: const {},
-      unlockedActivityIds: const {"act_module_flashcards", "act_data_hub_query_builder"},
+      unlockedActivityIds: const {"act_module_flashcards", "act_data_hub_query_builder", "act_sequence_alignment", "act_docking_best_fit"},
       activityMetrics: const {},
       unlockedBadgeIds: const {},
       badgeMetrics: const {},

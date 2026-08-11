@@ -175,7 +175,108 @@
           "c4_bioinformatics_tools": 50
         },
         "moduleSteps": [
-          
+          {
+            "moduleStepId": "mod_3_step_1_gene_data",
+            "title": "Gene Data",
+            "type": "markdown",
+            "markdownInstructions": "Bioinformatics definition",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"3 min",
+            "description": "Brief explanaton of what bioinformatics is",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_2_protein_data",
+            "title": "Protein Data",
+            "type": "markdown",
+            "markdownInstructions": "List of bioinformatics uses",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of what bioinformatics can be used for",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_3_ligand_data",
+            "title": "Ligand Data",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_4_online_databases",
+            "title": "Online Databases",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_5_querying_online_databases",
+            "title": "Querying Online Databases",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "act_sequence_alignment",
+            "title": "Sequence Alignment Activity",
+            "type": "activity",
+            "markdownInstructions": "Use the Needleman-Wunsch algorithm to perform sequence alignment",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Learn how you would query an online database to find information on a molecule",
+            "activityConfig": {
+              "activityId": "act_sequence_alignment",
+              "objectives": ["Objective 1", "Objective 2"],
+              "leftSequence": "AGGA",
+              "topSequence": "ACGA",
+              "scoringSystem": {
+                "match": 1,
+                "mismatch": -1,
+                "indel": -2
+              },
+              "matrixAnswers": [
+                [0, -2, -4, -6, -8],
+                [-2, 1, -1, -3, -5],
+                [-4, -1, 0, 0, -2],
+                [-6, -3, -2, 1, -1],
+                [-8, -5, -4, -1, 2]
+              ],
+              "matrixTracebackAnswers": [
+                ["-", "-", "-", "-", "-"],
+                ["-", "D", "L", "L", "L"],
+                ["-", "T", "D", "D", "L"],
+                ["-", "T", "DT", "D", "DL"],
+                ["-", "DT", "DT", "T", "D"]
+              ],
+              "correctAlignmentScore": 2.0
+            }
+          },
+          {
+            "moduleStepId": "mod_3_quiz",
+            "title": "Module 3 Quiz",
+            "type": "quiz",
+            "markdownInstructions": "Quiz on Module 3",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Quiz on biological data retrieval and types",
+            "activityConfig": null
+          }
         ]
     },
     {
@@ -211,7 +312,126 @@
           "c6_model": 50
         },
         "moduleSteps": [
-          
+          {
+            "moduleStepId": "mod_7_step_1_what_is_molecular_docking",
+            "title": "What is Molecular Docking",
+            "type": "markdown",
+            "markdownInstructions": "Bioinformatics definition",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"3 min",
+            "description": "Brief explanaton of what bioinformatics is",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_7_step_2_receptor_pocket_info",
+            "title": "Receptor Pocket Info",
+            "type": "markdown",
+            "markdownInstructions": "List of bioinformatics uses",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of what bioinformatics can be used for",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_7_step_3_binding_ligand_info",
+            "title": "Binding Ligand Info",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_7_step_4_choosing_best_fit",
+            "title": "Choosing Best Fit",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_7_step_5_docking_results_interpretation",
+            "title": "Docking Results Interpretation",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "act_docking_best_fit",
+            "title": "Molecular Docking Best Fit Activity",
+            "type": "activity",
+            "markdownInstructions": "Choose and dock best fit for given receptor pocket",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Learn how you would choose a best fitting ligand for a receptor pocket and how it best fits within the pocket",
+            "activityConfig": {
+              "activityId": "act_docking_best_fit",
+              "objectives": ["Press the binding pocket to view bniding requirements and then select the best fitting ligand", "Objective 2"],
+              "receptorPocket": {
+                "id": "mdm2_1rv1",
+                "moduleId": "PROT_1TUP",
+                "name": "MDM2 Binding Pocket",
+                "minMolecularWeight": 400.0,
+                "maxMolecularWeight": 650.0,
+                "preferredEnvironment": "non-polar",
+                "minHydrophobicFeatures": 2,
+                "requiredHydrogenBondAcceptorRange": [1, 5],
+                "requiredHydrogenBondDonorRange": [0, 2]
+              },
+              "candidateLigands": [
+                {
+                  "id": "aspirin_binding_candidate",
+                  "ligandMoleculeId": "LIG_ASPIRIN",
+                  "receptorPocketId": "mdm2_1rv1",
+                  "name": "Aspirin",
+                  "isKnownBinder": false,
+                  "pocketMatchScore": 60.0,
+                  "feedback": "Too small and polar (180 Da vs 400-650 Da pocket requirement and XLogP3 1.2 <= 2.0)."
+                },
+                {
+                  "id": "nutlin_3a_binding_candidate",
+                  "ligandMoleculeId": "LIG_NUTLIN_3A",
+                  "receptorPocketId": "mdm2_1rv1",
+                  "name": "Nutlin_3a",
+                  "isKnownBinder": true,
+                  "pocketMatchScore": 100.0,
+                  "feedback": "Perfect fit! Molecular weight is within range and high XLogP3 matches the non-polar MDM2 pocket."
+                },
+                {
+                  "id": "caffeine_binding_candidate",
+                  "ligandMoleculeId": "LIG_CAFFEINE",
+                  "receptorPocketId": "mdm2_1rv1",
+                  "name": "Caffeine",
+                  "isKnownBinder": false,
+                  "pocketMatchScore": 60.0,
+                  "feedback": "Too small and polar (194 Da vs 400-650 Da pocket requirement and XLogP3 -0.1 <= 2.0)."
+                }
+              ]
+            }
+          },
+          {
+            "moduleStepId": "mod_3_quiz",
+            "title": "Module 3 Quiz",
+            "type": "quiz",
+            "markdownInstructions": "Quiz on Module 3",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Quiz on biological data retrieval and types",
+            "activityConfig": null
+          }
         ]
     },
     {

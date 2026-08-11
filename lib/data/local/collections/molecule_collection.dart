@@ -51,6 +51,7 @@ class MoleculeCollection {
   double? polarSurfaceAreaAng = 0.0; 
   int? hydrogenBondDonors = 0;
   int? hydrogenBondAcceptors = 0;
+  int? hydrophobicFeatures = 0;
   String? pathTo2DStructure;
   String? pathToSDF;
 
@@ -109,6 +110,7 @@ class MoleculeCollection {
           polarSurfaceAreaAng: polarSurfaceAreaAng, 
           hydrogenBondDonors: hydrogenBondDonors, 
           hydrogenBondAcceptors: hydrogenBondAcceptors,
+          hydrophobicFeatures: hydrophobicFeatures,
           pathTo2DStructure: pathTo2DStructure,
           pathTo3DStructure: pathTo3DStructure,
           pathToSDF: pathToSDF, 
@@ -146,7 +148,7 @@ class MoleculeCollection {
       ..startPosition = json['startPosition'] as int?
       ..endPosition = json['endPosition'] as int?
       ..strand = json['strand'] as String?
-      
+      ..fullName = json["fullName"] as String?
       
       // Protein fields
       ..pdbId = json['pdbId'] as String?
@@ -166,6 +168,7 @@ class MoleculeCollection {
       ..molecularWeight = (json['molecularWeight'] as num?)?.toDouble()
       ..hydrogenBondDonors = json["hydrogenBondDonors"] as int?
       ..hydrogenBondAcceptors = json["hydrogenBondAcceptors"] as int?
+      ..hydrophobicFeatures = json["hydrophobicFeatures"] as int?
       ..polarSurfaceAreaAng = json["polarSurfaceAreaAng"] as double?
       ..logP = json['logP'] as double?
       ..pathTo2DStructure = json["pathTo2DStructure"] as String?

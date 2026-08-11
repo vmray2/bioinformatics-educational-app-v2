@@ -162,4 +162,23 @@ class MoleculeRepository {
     final isar = await _db;
     yield* isar.moleculeCollections.watchObject(id, fireImmediately: true);
   }
+
+  Stream<MoleculeCollection?> watchMoleculeByStringId(String stringId) async* {
+    final isar = await _db;
+    
+    yield* isar.moleculeCollections
+        .filter()
+        .moleculeIdEqualTo(stringId)
+        .watch(fireImmediately: true)
+        .map((list) => list.firstOrNull);
+  }
+
+  Stream<List<MoleculeCollection>> watchMoleculesByStringIds(List<String> stringIds) async* {
+    final isar = await _db;
+    
+    yield* isar.moleculeCollections
+        .filter()
+        .anyOf(stringIds, (q, String id) => q.moleculeIdEqualTo(id))
+        .watch(fireImmediately: true);
+  }
 }

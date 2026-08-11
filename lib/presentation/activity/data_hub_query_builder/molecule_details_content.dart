@@ -9,8 +9,6 @@ class MoleculeDetailsContent extends StatelessWidget {
 
   const MoleculeDetailsContent({super.key, required this.molecule});
 
-  //Gene full name is null or empty
-
   dynamic setFileBar(AppColors appColors){
     dynamic fileBar = Container(
       width: double.infinity,
@@ -933,6 +931,43 @@ class MoleculeDetailsContent extends StatelessWidget {
                                       Flexible(
                                         child: Text(
                                           molecule.smiles!,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                          style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            //height: 1
+                                          ),  
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 2,
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 8),
+                                  decoration: BoxDecoration(
+                                    color: appColors.badgeCardBackgroundColor,
+                                    borderRadius: BorderRadius.circular(8)
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          "Hydrophobic Features",
+                                          //textAlign: TextAlign.center,
+                                          style: GoogleFonts.inter(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            //height: 1
+                                          ),  
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          "${molecule.hydrophobicFeatures}",
                                           style: GoogleFonts.inter(
                                             fontSize: 12,
                                             //height: 1
@@ -1008,7 +1043,7 @@ class MoleculeDetailsContent extends StatelessWidget {
                                   Flexible(
                                     flex: 2,
                                     child: Text(
-                                      "Molecular Weight (<500 g/mol)",
+                                      "Molecular Weight\n(<500 g/mol)",
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.inter(
                                         color: appColors.textColor,
@@ -1054,7 +1089,7 @@ class MoleculeDetailsContent extends StatelessWidget {
                                   Flexible(
                                     flex: 2,
                                     child: Text(
-                                      "Hydrogen Bond Donors (<= 5)",
+                                      "Hydrogen Bond Donors\n(<= 5)",
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.inter(
                                         color: appColors.textColor,
@@ -1109,7 +1144,7 @@ class MoleculeDetailsContent extends StatelessWidget {
                                   Flexible(
                                     flex: 2,
                                     child: Text(
-                                      "Lipophilicity (<= 5)",
+                                      "Lipophilicity (LogP)\n(<= 5)",
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.inter(
                                         color: appColors.textColor,
@@ -1123,7 +1158,7 @@ class MoleculeDetailsContent extends StatelessWidget {
                                       spacing: 4,
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        molecule.logP! <= 10 ? Flexible(child: Icon(Icons.check_box)) : Flexible(child: Icon(Icons.check_box_outline_blank)),
+                                        molecule.logP! <= 5 ? Flexible(child: Icon(Icons.check_box)) : Flexible(child: Icon(Icons.check_box_outline_blank)),
                                         Flexible(
                                           child: Text(
                                             "${molecule.logP}",
@@ -1156,7 +1191,7 @@ class MoleculeDetailsContent extends StatelessWidget {
                                   Flexible(
                                     flex: 2,
                                     child: Text(
-                                      "Hydrogen Bond Acceptor (<= 10)",
+                                      "Hydrogen Bond Acceptor\n(<= 10)",
                                       textAlign: TextAlign.center,
                                       style: GoogleFonts.inter(
                                         color: appColors.textColor,
