@@ -300,7 +300,156 @@
           "c7_scripting": 50
         },
         "moduleSteps": [
-          
+          {
+            "moduleStepId": "mod_6_step_1_scripting_uses",
+            "title": "Scripting Uses",
+            "type": "markdown",
+            "markdownInstructions": "Bioinformatics definition",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"3 min",
+            "description": "Brief explanaton of what bioinformatics is",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_6_step_2_what_is_python",
+            "title": "What is Python",
+            "type": "markdown",
+            "markdownInstructions": "List of bioinformatics uses",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of what bioinformatics can be used for",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_6_step_3_variable_declaration_and_data_types",
+            "title": "Variable Declaration and Data Types",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_6_step_4_conditionals",
+            "title": "Conditionals",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "mod_3_step_5_loops",
+            "title": "Loops",
+            "type": "markdown",
+            "markdownInstructions": "Different types of bioinformatics users",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Brief list of different types of bioinformatics users",
+            "activityConfig": null
+          },
+          {
+            "moduleStepId": "act_python_scripting",
+            "title": "Python Scripting Activity",
+            "type": "activity",
+            "markdownInstructions": "Order the code blocks correctly annd run the script to get desired output",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Learn how to write a Python script for bioinformatics processes",
+            "activityConfig": {
+              "activityId": "act_python_scripting",
+              "objectives": ["Objective 1"],
+              "codeBlocks": [
+                {
+                  "codeBlockId": "line_1",
+                  "code": "seq = 'ATGCTCAGCT'",
+                  "correctPositions": [1, 2],
+                  "indentLevel": 0,
+                  "requires": {}
+                },
+                {
+                  "codeBlockId": "line_2",
+                  "code": "gcCount = 0",
+                  "correctPositions": [1, 2],
+                  "indentLevel": 0,
+                  "requires": {}
+                },
+                {
+                  "codeBlockId": "line_3",
+                  "code": "for nuc in seq:",
+                  "correctPositions": [3],
+                  "indentLevel": 0,
+                  "requires": {
+                    "line_1": ["Variable 'seq' was called before it was declared"]
+                  }
+                },
+                {
+                  "codeBlockId": "line_4",
+                  "code": "\tif nuc == 'G' or nuc == 'C':",
+                  "correctPositions": [4],
+                  "indentLevel": 1,
+                  "requires": {
+                    "line_3": ["Variable 'nuc' called before it was declared", "Indentation error"]
+                  }
+                },
+                {
+                  "codeBlockId": "line_5",
+                  "code": "\t\tgcCount += 1",
+                  "correctPositions": [5],
+                  "indentLevel": 2,
+                  "requires": {
+                    "line_2": ["Variable 'gcCount' called befored it was declared"], 
+                    "line_3": ["Indentation error"]
+                  }
+                },
+                {
+                  "codeBlockId": "line_6",
+                  "code": "gcPerc = gcCount / len(seq) * 100",
+                  "correctPositions": [6],
+                  "indentLevel": 0,
+                  "requires": {
+                    "line_1": ["Variable 'gcCount' called before it was declared"], 
+                    "line_2": ["Variable 'seq' called before it was declared"]
+                  }
+                },
+                {
+                  "codeBlockId": "line_7",
+                  "code": "print('GC Content %:', gcPerc)",
+                  "correctPositions": [7],
+                  "indentLevel": 0,
+                  "requires": {
+                    "line_6": ["Variable gcPerc called before it was declared"]
+                  }
+                }
+              ],
+              "wrongOutput": {
+                "line_5,line_7,line_4|null": "GC Content %: 100",
+                "line_7,line_4|null,line_5|null": "GC Content %: 0",
+                "line_4|null,line_5|null,line_3": "Error: Empty statement body",
+                "line_5|null,line_4": "Error: Empty statement body"
+              },
+              "correctOutput": "GC Content %: 50"
+            }
+          },
+          {
+            "moduleStepId": "mod_6_quiz",
+            "title": "Module 6 Quiz",
+            "type": "quiz",
+            "markdownInstructions": "Quiz on Module 6",
+            "imgPath": "assets/img/Bioinformatics Computer Sprite 256.png",
+            "hint": "Hint Text",
+            "estTime":"5 min",
+            "description": "Quiz on Python scripting",
+            "activityConfig": null
+          }
         ]
     },
     {

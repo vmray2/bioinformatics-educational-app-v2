@@ -1,10 +1,12 @@
 import 'package:binf_educational_app_redone/domain/models/activity_config.dart';
 import 'package:binf_educational_app_redone/domain/models/binding_ligand.dart';
+import 'package:binf_educational_app_redone/domain/models/code_block.dart';
 import 'package:binf_educational_app_redone/domain/models/receptor_pocket.dart';
 import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_competencies_list.dart';
 import 'package:binf_educational_app_redone/presentation/activity/activity_overview/activity_roadmap_steps.dart';
 import 'package:binf_educational_app_redone/presentation/activity/data_hub_query_builder/query_builder_screen.dart';
 import 'package:binf_educational_app_redone/presentation/activity/molecular_docking_best_fit/docking_best_fit_screen.dart';
+import 'package:binf_educational_app_redone/presentation/activity/python_scripting/python_scripting_screen.dart';
 import 'package:binf_educational_app_redone/presentation/activity/sequence_alignment/sequence_alignment_matrix_fill_screen.dart';
 import 'package:binf_educational_app_redone/providers/activity_provider.dart';
 import 'package:binf_educational_app_redone/theme/app_colors.dart';
@@ -427,6 +429,74 @@ class _ActivityOverviewScreenState extends ConsumerState<ActivityOverviewScreen>
                                     ]
                                   );
                                 }
+                                else if (widget.activityId == "act_python_scripting") {
+                                  List<CodeBlock> codeBlocks = [
+                                    CodeBlock(
+                                        codeBlockId: "line_1",
+                                        code: 'seq = "ATGCTCAGCT"',
+                                        correctPositions: [1, 2],
+                                        indentLevel: 0,
+                                    ),
+                                    CodeBlock(
+                                        codeBlockId: "line_2",
+                                        code: 'gcCount = 0',
+                                        correctPositions: [1, 2],
+                                        indentLevel: 0,
+                                    ),
+                                    CodeBlock(
+                                        codeBlockId: "line_3",
+                                        code: 'for nuc in seq:',
+                                        correctPositions: [3],
+                                        indentLevel: 0,
+                                        requires: {"line_1": ["Variable 'seq' was called before it was declared"]}
+                                    ),
+                                    CodeBlock(
+                                        codeBlockId: "line_4",
+                                        code: '\tif nuc == "G" or nuc == "C":',
+                                        correctPositions: [4],
+                                        indentLevel: 1,
+                                        requires: {"line_3": ["Variable 'nuc' called before it was declared", "Indentation error"]}
+                                    ),
+                                    CodeBlock(
+                                        codeBlockId: "line_5",
+                                        code: '\t\tgcCount += 1',
+                                        correctPositions: [5],
+                                        indentLevel: 2,
+                                        requires: {"line_2": ["Variable 'gcCount' called befored it was declared"], "line_3": ["Indentation error"]}
+                                    ),
+                                    CodeBlock(
+                                        codeBlockId: "line_6",
+                                        code: 'gcPerc = gcCount / len(seq) * 100',
+                                        correctPositions: [6],
+                                        indentLevel: 0,
+                                        requires: {"line_1": ["Variable 'gcCount' called before it was declared"], "line_2": ["Variable 'seq' called before it was declared"]}
+                                    ),
+                                    CodeBlock(
+                                        codeBlockId: "line_7",
+                                        code: 'print("GC Content %:", gcPerc)',
+                                        correctPositions: [7],
+                                        indentLevel: 0,
+                                        requires: {"line_6": ["Variable gcPerc called before it was declared"]}
+                                    ),
+                                  ];
+
+                                  Map<String, String> wrongOutput = {
+                                    "line_5,line_7,line_4|null": "GC Content %: 100",
+                                    "line_7,line_4|null,line_5|null": "GC Content %: 0",
+                                    "line_4|null,line_5|null,line_3": "Error: Empty statement body",
+                                    "line_5|null,line_4": "Error: Empty statement body"
+                                  };
+
+                                  String correctOutput = "GC Content %: 50";
+
+                                  finalConfig = ActivityConfig(
+                                    activityId: widget.activityId, 
+                                    objectives: ["Objective 1"],
+                                    codeBlocks: codeBlocks,
+                                    wrongOutput: wrongOutput,
+                                    correctOutput: correctOutput
+                                  );
+                                }
                               }
 
                               if (widget.activityId == "act_data_hub_query_builder") {
@@ -450,6 +520,14 @@ class _ActivityOverviewScreenState extends ConsumerState<ActivityOverviewScreen>
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => DockingBestFitScreen(config: finalConfig, activityName: activity.name,)
+                                  )
+                                );
+                              }
+                              else if (widget.activityId == "act_python_scripting") {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PythonScriptingScreen(config: finalConfig, activityName: activity.name,)
                                   )
                                 );
                               }

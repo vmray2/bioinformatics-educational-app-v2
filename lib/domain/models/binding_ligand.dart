@@ -25,8 +25,8 @@ class BindingLigand {
       name: json['name'] as String, 
       ligandMoleculeId: json["ligandMoleculeId"] as String, 
       feedback: json["feedback"] as String,
-      pocketMatchScore: json["pocketMatchScore"],
-      receptorPocketId: json["receptorPocketId"]
+      pocketMatchScore: json["pocketMatchScore"] as double,
+      receptorPocketId: json["receptorPocketId"] as String
     );
   }
 }

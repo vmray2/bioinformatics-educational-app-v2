@@ -4,8 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ActivityObjectiveBar extends StatelessWidget{
   final String objectiveText;
-
-  const ActivityObjectiveBar({super.key, required this.objectiveText});
+  final Color? barColor;
+  final Color? barBorderColor;
+  final Color? barTextColor;
+  const ActivityObjectiveBar({super.key, required this.objectiveText, this.barColor, this.barBorderColor, this.barTextColor});
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +17,10 @@ class ActivityObjectiveBar extends StatelessWidget{
       width: double.infinity,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: appColors.standardCardBackgroundColor,
+        color: barColor ?? appColors.standardCardBackgroundColor,
         border: Border(
           bottom: BorderSide(
-            color: Color.fromRGBO(204, 204, 204, 1),
+            color: barBorderColor ?? Color.fromRGBO(204, 204, 204, 1), // Use appColors for this
             width: 1.0
           )
         )
@@ -33,7 +35,7 @@ class ActivityObjectiveBar extends StatelessWidget{
               "Objective",
               style: GoogleFonts.inter(
                 fontSize: 12,
-                color: appColors.textColor,
+                color: barTextColor ?? appColors.textColor,
                 fontWeight: FontWeight.w600
               ),
             ),
@@ -44,7 +46,7 @@ class ActivityObjectiveBar extends StatelessWidget{
               objectiveText,
               style: GoogleFonts.inter(
                 fontSize: 12,
-                color: appColors.textColor
+                color: barTextColor ?? appColors.textColor
               ),
             ),
           ),

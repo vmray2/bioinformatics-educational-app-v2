@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 class ActivityBody extends StatelessWidget{
   final String objectiveText;
   final Widget activityContent;
-
-  const ActivityBody({super.key, required this.objectiveText, required this.activityContent});
+  final Color? barColor;
+  final Color? barBorderColor;
+  final Color? barTextColor;
+  
+  const ActivityBody({super.key, required this.objectiveText, required this.activityContent, this.barColor, this.barBorderColor, this.barTextColor});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,7 @@ class ActivityBody extends StatelessWidget{
               children: [
                 Flexible(
                   flex: 9,
-                  child: ActivityObjectiveBar(objectiveText: objectiveText)
+                  child: ActivityObjectiveBar(objectiveText: objectiveText, barColor: barColor, barBorderColor: barBorderColor, barTextColor: barTextColor,)
                 ),
                 Flexible(
                   flex: 91,
