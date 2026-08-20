@@ -1,3 +1,3 @@
-# binf_educational_app_redone
+# bioinformatics-educational-app-v2
 
-A new Flutter project.
+Flutter Mobile App for Bioinformatics Education.
